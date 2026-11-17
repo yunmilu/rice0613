@@ -22,7 +22,7 @@
 
     <!-- Tailwind CSS 로드 -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter 및 Noto Sans KR -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -155,6 +155,7 @@
                         <i data-lucide="x" class="w-5 h-5"></i>
                     </button>
                 </div>
+                
                 <div class="p-5 space-y-4">
                     <div class="flex gap-2">
                         <input type="text" id="schoolSearchInput" placeholder="예: 서울고등학교, 경기고..." 
@@ -164,6 +165,7 @@
                             검색
                         </button>
                     </div>
+
                     <div id="schoolSearchResults" class="max-h-60 overflow-y-auto space-y-2 pr-1">
                         <div class="text-center py-8 text-xs text-slate-400">
                             학교 이름을 입력하고 검색 버튼을 눌러주세요.<br>
@@ -191,6 +193,7 @@
                         <i data-lucide="x" class="w-5 h-5"></i>
                     </button>
                 </div>
+                
                 <div class="p-5 overflow-y-auto space-y-4 flex-1">
                     <div class="bg-gradient-to-r from-sky-50 to-indigo-50 p-3.5 rounded-2xl border border-sky-200/60 flex items-center justify-between">
                         <div>
@@ -202,8 +205,10 @@
                             <div class="text-xl font-black text-slate-800" id="showcaseTopLevel">Lv.1</div>
                         </div>
                     </div>
+
                     <div id="showcaseBadgesGrid" class="grid grid-cols-2 gap-2.5"></div>
                 </div>
+
                 <div class="p-4 bg-slate-50 border-t border-slate-100 shrink-0 text-center">
                     <button onclick="closeBadgeShowcaseModal()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs rounded-xl transition cursor-pointer">
                         확인 완료
@@ -219,14 +224,17 @@
                     <button id="prevDateBtn" aria-label="이전 날짜" class="p-2.5 rounded-xl bg-sky-50 text-sky-600 hover:bg-sky-100 active:scale-95 transition cursor-pointer">
                         <i data-lucide="chevron-left" class="w-5 h-5"></i>
                     </button>
+                    
                     <div class="relative flex-1">
                         <input type="date" id="datePicker" 
                             class="w-full text-center font-bold text-slate-700 bg-sky-50/70 border border-sky-200 rounded-xl py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:bg-white transition cursor-pointer">
                     </div>
+
                     <button id="nextDateBtn" aria-label="다음 날짜" class="p-2.5 rounded-xl bg-sky-50 text-sky-600 hover:bg-sky-100 active:scale-95 transition cursor-pointer">
                         <i data-lucide="chevron-right" class="w-5 h-5"></i>
                     </button>
                 </div>
+
                 <div id="quickDateChips" class="flex gap-1.5 overflow-x-auto pb-1 pt-1 justify-between"></div>
             </section>
 
@@ -245,12 +253,14 @@
                 </div>
             </section>
 
-            <!-- 오전 타임 컨테이너 -->
+            <!-- 오전 타임 컨테이너 (조식 + 중식) -->
             <div id="morningContent" class="p-5 space-y-4 bg-white fade-in">
                 <div class="bg-gradient-to-br from-sky-50/60 to-white rounded-2xl p-4 border border-sky-100 shadow-xs">
                     <div class="flex items-center justify-between mb-3">
                         <div class="flex items-center gap-2">
-                            <span class="p-2 bg-amber-100 text-amber-600 rounded-xl"><i data-lucide="sunrise" class="w-4 h-4"></i></span>
+                            <span class="p-2 bg-amber-100 text-amber-600 rounded-xl">
+                                <i data-lucide="sunrise" class="w-4 h-4"></i>
+                            </span>
                             <div>
                                 <h3 class="font-extrabold text-sm text-slate-800">조식</h3>
                                 <p class="text-[11px] text-slate-400" id="breakfastCalories">- kcal</p>
@@ -263,7 +273,9 @@
                 <div class="bg-gradient-to-br from-sky-50/80 to-white rounded-2xl p-4 border border-sky-200 shadow-xs">
                     <div class="flex items-center justify-between mb-3">
                         <div class="flex items-center gap-2">
-                            <span class="p-2 bg-sky-100 text-sky-600 rounded-xl"><i data-lucide="sun" class="w-4 h-4"></i></span>
+                            <span class="p-2 bg-sky-100 text-sky-600 rounded-xl">
+                                <i data-lucide="sun" class="w-4 h-4"></i>
+                            </span>
                             <div>
                                 <h3 class="font-extrabold text-sm text-slate-800">중식</h3>
                                 <p class="text-[11px] text-slate-400" id="lunchCalories">- kcal</p>
@@ -274,12 +286,14 @@
                 </div>
             </div>
 
-            <!-- 오후 타임 컨테이너 -->
+            <!-- 오후 타임 컨테이너 (석식) -->
             <div id="eveningContent" class="p-5 space-y-4 bg-white fade-in hidden">
                 <div class="bg-gradient-to-br from-indigo-50/60 to-white rounded-2xl p-4 border border-indigo-100 shadow-xs">
                     <div class="flex items-center justify-between mb-3">
                         <div class="flex items-center gap-2">
-                            <span class="p-2 bg-indigo-100 text-indigo-600 rounded-xl"><i data-lucide="moon" class="w-4 h-4"></i></span>
+                            <span class="p-2 bg-indigo-100 text-indigo-600 rounded-xl">
+                                <i data-lucide="moon" class="w-4 h-4"></i>
+                            </span>
                             <div>
                                 <h3 class="font-extrabold text-sm text-slate-800">석식</h3>
                                 <p class="text-[11px] text-slate-400" id="dinnerCalories">- kcal</p>
@@ -302,7 +316,9 @@
                             </div>
                         </div>
                     </div>
+
                     <div id="deliciousMenuSelector" class="flex flex-wrap gap-1.5 my-3"></div>
+
                     <div id="badgeDrawResultContainer" class="hidden mt-3 p-3.5 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl text-center fade-in"></div>
                 </div>
             </section>
@@ -324,6 +340,7 @@
                         </label>
                     </div>
                 </div>
+                
                 <div class="flex gap-2">
                     <input type="text" id="newFavInput" placeholder="예: 돈까스, 치킨, 탕수육..." 
                         class="flex-1 bg-sky-50/70 border border-sky-200 rounded-xl px-3.5 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-sky-400 focus:bg-white transition"
@@ -332,6 +349,7 @@
                         추가
                     </button>
                 </div>
+
                 <div id="favoritesDDayList" class="space-y-2 max-h-48 overflow-y-auto pr-1"></div>
             </div>
 
@@ -342,6 +360,7 @@
                     <i data-lucide="ban" class="w-5 h-5 text-rose-500"></i>
                     <h3 class="font-bold text-slate-800 text-sm">기피 메뉴 (취소선 표시)</h3>
                 </div>
+                
                 <div class="flex gap-2">
                     <input type="text" id="newDislikeInput" placeholder="예: 오이, 가지, 브로콜리..." 
                         class="flex-1 bg-sky-50/70 border border-sky-200 rounded-xl px-3.5 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-sky-400 focus:bg-white transition"
@@ -350,6 +369,7 @@
                         등록
                     </button>
                 </div>
+
                 <div id="dislikeChipsList" class="flex flex-wrap gap-1.5 pt-1"></div>
             </div>
         </div>
@@ -359,8 +379,9 @@
         </footer>
     </div>
 
+    <!-- JavaScript 로직 -->
     <script>
-        // 모바일 PWA 독립 실행(Standalone)을 위한 서비스 워커 등록
+        // 모바일 PWA 독립 실행을 위한 서비스 워커 등록
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -402,22 +423,588 @@
                 if (i === 0) {
                     sampleDatabase[dStr] = {
                         breakfast: ["흑미밥", "쇠고기미역국", "스팸구이", "배추김치", "요거트"],
-                        breakfastCal: "540.2",
+                        breakfastCal: "540.2 kcal",
                         lunch: ["차조밥", "등심돈까스", "크림스프", "양배추샐러드", "배추김치", "초코칩쿠키"],
-                        lunchCal: "820.5",
+                        lunchCal: "820.5 kcal",
                         dinner: ["참치마요덮밥", "유부장국", "떡볶이", "단무지", "오렌지주스"],
-                        dinnerCal: "690.0"
+                        dinnerCal: "690.0 kcal"
                     };
                 } else if (i === 1) {
                     sampleDatabase[dStr] = {
                         breakfast: ["현미밥", "참치김치찌개", "계란후라이", "김구이", "깍두기"],
-                        breakfastCal: "510.0",
+                        breakfastCal: "510.0 kcal",
                         lunch: ["현미밥", "닭다리살오븐구이", "배추된장국", "무생채", "배추김치", "방울토마토"],
-                        lunchCal: "780.4",
+                        lunchCal: "780.4 kcal",
                         dinner: ["소고기볶음밥", "계란파국", "군만두", "단무지", "사과"],
-                        dinnerCal: "710.2"
+                        dinnerCal: "710.2 kcal"
                     };
                 } else {
                     sampleDatabase[dStr] = {
                         breakfast: ["귀리밥", "순두부찌개", "햄치즈샌드위치", "배추김치", "우유"],
-                        breakfastCal
+                        breakfastCal: "530.1 kcal",
+                        lunch: ["쌀밥", "제육볶음", "상추쌈", "콩나물국", "배추김치", "식혜"],
+                        lunchCal: "810.0 kcal",
+                        dinner: ["짜장면", "탕수육", "단무지", "군만두", "요플레"],
+                        dinnerCal: "850.3 kcal"
+                    };
+                }
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initSampleDatabase();
+            document.getElementById('datePicker').value = selectedDateStr;
+            document.getElementById('boldHighlightToggle').checked = isBoldHighlightOn;
+            
+            renderQuickDateChips();
+            loadMealData();
+            renderFavoritesAndDDay();
+            renderDislikes();
+            initGachaForToday();
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            document.getElementById('datePicker').addEventListener('change', (e) => {
+                selectedDateStr = e.target.value;
+                todayGachaState = JSON.parse(localStorage.getItem('school_meal_gacha_' + selectedDateStr) || 'null');
+                renderQuickDateChips();
+                loadMealData();
+                initGachaForToday();
+            });
+
+            document.getElementById('prevDateBtn').addEventListener('click', () => {
+                const d = new Date(selectedDateStr);
+                d.setDate(d.getDate() - 1);
+                selectedDateStr = getFormattedDate(d);
+                document.getElementById('datePicker').value = selectedDateStr;
+                todayGachaState = JSON.parse(localStorage.getItem('school_meal_gacha_' + selectedDateStr) || 'null');
+                renderQuickDateChips();
+                loadMealData();
+                initGachaForToday();
+            });
+
+            document.getElementById('nextDateBtn').addEventListener('click', () => {
+                const d = new Date(selectedDateStr);
+                d.setDate(d.getDate() + 1);
+                selectedDateStr = getFormattedDate(d);
+                document.getElementById('datePicker').value = selectedDateStr;
+                todayGachaState = JSON.parse(localStorage.getItem('school_meal_gacha_' + selectedDateStr) || 'null');
+                renderQuickDateChips();
+                loadMealData();
+                initGachaForToday();
+            });
+
+            document.getElementById('todayBtn').addEventListener('click', () => {
+                selectedDateStr = getFormattedDate(new Date());
+                document.getElementById('datePicker').value = selectedDateStr;
+                todayGachaState = JSON.parse(localStorage.getItem('school_meal_gacha_' + selectedDateStr) || 'null');
+                renderQuickDateChips();
+                loadMealData();
+                initGachaForToday();
+            });
+        });
+
+        function switchMainView(view) {
+            currentView = view;
+            const mealContainer = document.getElementById('mealViewContainer');
+            const prefContainer = document.getElementById('prefViewContainer');
+            const navMeal = document.getElementById('navMealBtn');
+            const navPref = document.getElementById('navPrefBtn');
+            const gachaSection = document.getElementById('lunchGachaSection');
+
+            if (view === 'meals') {
+                mealContainer.classList.remove('hidden');
+                prefContainer.classList.add('hidden');
+                gachaSection.classList.remove('hidden');
+                navMeal.className = "py-3 text-sm font-bold text-sky-600 border-b-2 border-sky-500 bg-white flex items-center justify-center gap-1.5 transition cursor-pointer";
+                navPref.className = "py-3 text-sm font-bold text-slate-500 border-b-2 border-transparent hover:text-sky-600 flex items-center justify-center gap-1.5 transition cursor-pointer";
+            } else {
+                mealContainer.classList.add('hidden');
+                prefContainer.classList.remove('hidden');
+                gachaSection.classList.add('hidden');
+                navPref.className = "py-3 text-sm font-bold text-sky-600 border-b-2 border-sky-500 bg-white flex items-center justify-center gap-1.5 transition cursor-pointer";
+                navMeal.className = "py-3 text-sm font-bold text-slate-500 border-b-2 border-transparent hover:text-sky-600 flex items-center justify-center gap-1.5 transition cursor-pointer";
+                renderFavoritesAndDDay();
+                renderDislikes();
+            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        function switchTimeTab(tab) {
+            currentTimeTab = tab;
+            const morningDiv = document.getElementById('morningContent');
+            const eveningDiv = document.getElementById('eveningContent');
+            const tabM = document.getElementById('tabMorning');
+            const tabE = document.getElementById('tabEvening');
+
+            if (tab === 'morning') {
+                morningDiv.classList.remove('hidden');
+                eveningDiv.classList.add('hidden');
+                tabM.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-bold text-sm transition-all shadow-sm bg-white text-sky-600 cursor-pointer";
+                tabE.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-bold text-sm transition-all text-slate-500 hover:text-sky-600 cursor-pointer";
+            } else {
+                morningDiv.classList.add('hidden');
+                eveningDiv.classList.remove('hidden');
+                tabE.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-bold text-sm transition-all shadow-sm bg-white text-sky-600 cursor-pointer";
+                tabM.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-bold text-sm transition-all text-slate-500 hover:text-sky-600 cursor-pointer";
+            }
+        }
+
+        function renderQuickDateChips() {
+            const container = document.getElementById('quickDateChips');
+            container.innerHTML = '';
+            
+            const todayObj = new Date();
+            for (let i = -1; i <= 2; i++) {
+                const d = new Date(todayObj);
+                d.setDate(todayObj.getDate() + i);
+                const dStr = getFormattedDate(d);
+                const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+                const label = i === 0 ? '오늘' : `${d.getDate()}일(${dayNames[d.getDay()]})`;
+
+                const btn = document.createElement('button');
+                btn.className = `px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${dStr === selectedDateStr ? 'bg-sky-500 text-white shadow-sm' : 'bg-sky-50 text-sky-600 hover:bg-sky-100'}`;
+                btn.innerText = label;
+                btn.onclick = () => {
+                    selectedDateStr = dStr;
+                    document.getElementById('datePicker').value = dStr;
+                    todayGachaState = JSON.parse(localStorage.getItem('school_meal_gacha_' + selectedDateStr) || 'null');
+                    renderQuickDateChips();
+                    loadMealData();
+                    initGachaForToday();
+                };
+                container.appendChild(btn);
+            }
+        }
+
+        async function loadMealData() {
+            const dateClean = selectedDateStr.replace(/-/g, '');
+            let data = null;
+
+            if (currentSchoolCodeNo === "7530104" && sampleDatabase[selectedDateStr]) {
+                data = sampleDatabase[selectedDateStr];
+            } else {
+                try {
+                    const url = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${neisApiKey}&Type=json&ATPT_OFCDC_SC_CODE=${currentSchoolCode}&SD_SCHUL_CODE=${currentSchoolCodeNo}&MLSV_YMD=${dateClean}`;
+                    const res = await fetch(url);
+                    const json = await res.json();
+                    
+                    if (json.mealServiceDietInfo) {
+                        const rows = json.mealServiceDietInfo[1].row;
+                        data = { breakfast: [], breakfastCal: "-", lunch: [], lunchCal: "-", dinner: [], dinnerCal: "-" };
+                        
+                        rows.forEach(r => {
+                            const cleanMenu = r.DDISH_NM.replace(/<br\/>/g, '\n').split('\n')
+                                .map(m => m.replace(/[\s\d\.\(\)]+/g, '').trim())
+                                .filter(m => m.length > 0);
+
+                            if (r.MMEAL_SC_CODE === '1') {
+                                data.breakfast = cleanMenu;
+                                data.breakfastCal = r.CAL_INFO;
+                            } else if (r.MMEAL_SC_CODE === '2') {
+                                data.lunch = cleanMenu;
+                                data.lunchCal = r.CAL_INFO;
+                            } else if (r.MMEAL_SC_CODE === '3') {
+                                data.dinner = cleanMenu;
+                                data.dinnerCal = r.CAL_INFO;
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.error("NEIS API Load Error:", e);
+                }
+            }
+
+            if (!data) {
+                data = {
+                    breakfast: ["급식 정보가 없습니다."], breakfastCal: "0 kcal",
+                    lunch: ["급식 정보가 없습니다."], lunchCal: "0 kcal",
+                    dinner: ["급식 정보가 없습니다."], dinnerCal: "0 kcal"
+                };
+            }
+
+            renderMenuList('breakfastMenuList', 'breakfastCalories', data.breakfast, data.breakfastCal);
+            renderMenuList('lunchMenuList', 'lunchCalories', data.lunch, data.lunchCal);
+            renderMenuList('dinnerMenuList', 'dinnerCalories', data.dinner, data.dinnerCal);
+            renderDeliciousMenuSelector(data.lunch);
+        }
+
+        function renderMenuList(containerId, calId, menuArray, calorieText) {
+            const container = document.getElementById(containerId);
+            const calEl = document.getElementById(calId);
+            container.innerHTML = '';
+            calEl.innerText = calorieText ? `${calorieText}` : '- kcal';
+
+            if (!menuArray || menuArray.length === 0) {
+                container.innerHTML = '<div class="text-xs text-slate-400 py-2">급식 메뉴가 등록되지 않았습니다.</div>';
+                return;
+            }
+
+            menuArray.forEach(item => {
+                const isFav = favorites.includes(item);
+                const isDis = dislikes.includes(item);
+
+                const itemDiv = document.createElement('div');
+                let className = "flex items-center justify-between p-2 rounded-xl transition ";
+                
+                if (isFav) {
+                    className += isBoldHighlightOn ? "bg-amber-50 border border-amber-300 font-black text-slate-900 shadow-xs" : "bg-amber-50/70 border border-amber-200 font-bold text-slate-900";
+                } else if (isDis) {
+                    className += "bg-slate-50 text-slate-400 line-through opacity-75";
+                } else {
+                    className += "bg-sky-50/40 hover:bg-sky-50 text-slate-700 font-medium";
+                }
+
+                itemDiv.className = className;
+
+                let badgeHtml = '';
+                if (isFav) badgeHtml = '<span class="text-xs">⭐</span>';
+                if (isDis) badgeHtml = '<span class="text-xs">🚫</span>';
+
+                itemDiv.innerHTML = `
+                    <div class="flex items-center gap-2 cursor-pointer flex-1" onclick="toggleItemFavorite('${item}')">
+                        <span>${item}</span>
+                        ${badgeHtml}
+                    </div>
+                    <button onclick="event.stopPropagation(); toggleItemFavorite('${item}')" class="text-xs px-2 py-1 rounded-lg text-slate-400 hover:text-amber-500 transition cursor-pointer">
+                        ${isFav ? '★' : '☆'}
+                    </button>
+                `;
+                container.appendChild(itemDiv);
+            });
+        }
+
+        function toggleItemFavorite(item) {
+            const idx = favorites.indexOf(item);
+            if (idx >= 0) {
+                favorites.splice(idx, 1);
+            } else {
+                favorites.push(item);
+            }
+            localStorage.setItem('school_meal_favs', JSON.stringify(favorites));
+            loadMealData();
+            renderFavoritesAndDDay();
+        }
+
+        function openSchoolModal() {
+            document.getElementById('schoolModal').classList.remove('hidden');
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        function closeSchoolModal() {
+            document.getElementById('schoolModal').classList.add('hidden');
+        }
+
+        function selectSampleSchool() {
+            currentSchoolCode = "J10";
+            currentSchoolCodeNo = "7530104";
+            currentSchoolNameText = "한빛고등학교 (샘플)";
+            document.getElementById('currentSchoolName').innerText = currentSchoolNameText;
+            closeSchoolModal();
+            loadMealData();
+        }
+
+        async function searchSchools() {
+            const keyword = document.getElementById('schoolSearchInput').value.trim();
+            const resultsDiv = document.getElementById('schoolSearchResults');
+            
+            if (!keyword) {
+                resultsDiv.innerHTML = '<div class="text-center py-4 text-xs text-rose-500">검색어를 입력해주세요.</div>';
+                return;
+            }
+
+            resultsDiv.innerHTML = '<div class="text-center py-6 text-xs text-slate-400">검색 중...</div>';
+
+            try {
+                const url = `https://open.neis.go.kr/hub/schoolInfo?KEY=${neisApiKey}&Type=json&SCHUL_NM=${encodeURI(keyword)}`;
+                const res = await fetch(url);
+                const json = await res.json();
+
+                if (json.schoolInfo) {
+                    const rows = json.schoolInfo[1].row;
+                    resultsDiv.innerHTML = '';
+                    
+                    rows.forEach(r => {
+                        const btn = document.createElement('button');
+                        btn.className = "w-full text-left p-3 rounded-xl bg-sky-50 hover:bg-sky-100 transition flex items-center justify-between cursor-pointer";
+                        btn.innerHTML = `
+                            <div>
+                                <div class="font-bold text-sm text-slate-800">${r.SCHUL_NM}</div>
+                                <div class="text-[11px] text-slate-500">${r.ORG_RDNMA || r.JHS_SC_NM || ''}</div>
+                            </div>
+                            <span class="text-xs bg-sky-500 text-white font-bold px-2.5 py-1 rounded-lg">선택</span>
+                        `;
+                        btn.onclick = () => {
+                            currentSchoolCode = r.ATPT_OFCDC_SC_CODE;
+                            currentSchoolCodeNo = r.SD_SCHUL_CODE;
+                            currentSchoolNameText = r.SCHUL_NM;
+                            document.getElementById('currentSchoolName').innerText = currentSchoolNameText;
+                            closeSchoolModal();
+                            loadMealData();
+                        };
+                        resultsDiv.appendChild(btn);
+                    });
+                } else {
+                    resultsDiv.innerHTML = '<div class="text-center py-6 text-xs text-slate-400">검색 결과가 없습니다. 정확한 학교명을 입력해 보세요.</div>';
+                }
+            } catch (e) {
+                resultsDiv.innerHTML = '<div class="text-center py-6 text-xs text-rose-500">API 조회 중 오류가 발생했습니다.</div>';
+            }
+        }
+
+        function openBadgeShowcaseModal() {
+            document.getElementById('badgeShowcaseModal').classList.remove('hidden');
+            renderBadgeShowcase();
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        function closeBadgeShowcaseModal() {
+            document.getElementById('badgeShowcaseModal').classList.add('hidden');
+        }
+
+        function renderBadgeShowcase() {
+            const grid = document.getElementById('showcaseBadgesGrid');
+            grid.innerHTML = '';
+
+            const allBadges = Object.values(collectedBadges);
+            document.getElementById('showcaseTotalCount').innerText = `${allBadges.length}개`;
+
+            let maxLv = 1;
+            allBadges.forEach(b => {
+                if (b.level > maxLv) maxLv = b.level;
+            });
+            document.getElementById('showcaseTopLevel').innerText = `Lv.${maxLv}`;
+
+            if (allBadges.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-2 text-center py-10 text-xs text-slate-400">
+                        수집한 맛도리 뱃지가 없습니다!<br>메인 하단의 '맛도리 메뉴 뱃지 뽑기'를 진행해보세요.
+                    </div>
+                `;
+                return;
+            }
+
+            allBadges.forEach(badge => {
+                const card = document.createElement('div');
+                const isSSR = badge.grade === 'SSR';
+                card.className = `p-3 rounded-2xl border flex flex-col items-center text-center ${isSSR ? 'bg-gradient-to-b from-amber-50 to-pink-50 border-amber-300 ssr-card-glow' : 'bg-sky-50/50 border-sky-200'}`;
+                
+                card.innerHTML = `
+                    <div class="text-2xl mb-1">${badge.icon}</div>
+                    <div class="font-black text-xs text-slate-800">${badge.menuName}</div>
+                    <div class="text-[10px] font-bold mt-1 px-2 py-0.5 rounded-full ${isSSR ? 'bg-amber-100 text-amber-700' : 'bg-sky-100 text-sky-700'}">
+                        ${badge.grade} · Lv.${badge.level || 1}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function initGachaForToday() {
+            const menuList = sampleDatabase[selectedDateStr] ? sampleDatabase[selectedDateStr].lunch : ["돈까스", "제육볶음", "치킨"];
+            if (!todayGachaState) {
+                todayGachaState = {
+                    slots: menuList.map((m, idx) => ({ id: idx, menu: m, opened: false, badge: null }))
+                };
+                localStorage.setItem('school_meal_gacha_' + selectedDateStr, JSON.stringify(todayGachaState));
+            }
+            renderGachaSlots();
+        }
+
+        function renderGachaSlots() {
+            const grid = document.getElementById('gachaSlotGrid');
+            grid.innerHTML = '';
+
+            let remain = 0;
+            todayGachaState.slots.forEach(slot => {
+                if (!slot.opened) remain++;
+
+                const card = document.createElement('div');
+                card.className = `p-3 rounded-2xl border flex flex-col items-center justify-center transition cursor-pointer ${slot.opened ? 'bg-white border-sky-200 shadow-xs' : 'bg-gradient-to-br from-sky-500 to-blue-500 text-white border-sky-400 hover:scale-[1.02]'}`;
+                
+                if (slot.opened) {
+                    card.innerHTML = `
+                        <div class="text-xl mb-1">${slot.badge.icon}</div>
+                        <div class="font-bold text-xs text-slate-800 text-center truncate w-full">${slot.menu}</div>
+                        <div class="text-[9px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded mt-1">${slot.badge.grade}</div>
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <div class="text-xl mb-1">🎁</div>
+                        <div class="font-extrabold text-xs">뽑기 상자</div>
+                        <div class="text-[9px] text-sky-100 mt-1">터치해서 오픈</div>
+                    `;
+                    card.onclick = () => openSingleSlot(slot.id);
+                }
+                grid.appendChild(card);
+            });
+
+            document.getElementById('gachaRemainCount').innerText = remain;
+        }
+
+        function openSingleSlot(id) {
+            const slot = todayGachaState.slots.find(s => s.id === id);
+            if (!slot || slot.opened) return;
+
+            const grades = ['R', 'R', 'R', 'SR', 'SR', 'SSR'];
+            const chosenGrade = grades[Math.floor(Math.random() * grades.length)];
+            const icons = chosenGrade === 'SSR' ? ['👑', '🌟', '🔥'] : chosenGrade === 'SR' ? ['🍔', '🍗', '🍕'] : ['🥗', '🥣', '🥢'];
+            const chosenIcon = icons[Math.floor(Math.random() * icons.length)];
+
+            slot.opened = true;
+            slot.badge = { menuName: slot.menu, grade: chosenGrade, icon: chosenIcon, level: 1 };
+
+            collectedBadges[slot.menu] = slot.badge;
+            localStorage.setItem('school_meal_badges', JSON.stringify(collectedBadges));
+            localStorage.setItem('school_meal_gacha_' + selectedDateStr, JSON.stringify(todayGachaState));
+
+            renderGachaSlots();
+        }
+
+        function pullGachaOne() {
+            const closedSlot = todayGachaState.slots.find(s => !s.opened);
+            if (!closedSlot) return;
+            openSingleSlot(closedSlot.id);
+        }
+
+        function pullGachaAll() {
+            todayGachaState.slots.forEach(slot => {
+                if (!slot.opened) {
+                    const grades = ['R', 'SR', 'SSR'];
+                    const chosenGrade = grades[Math.floor(Math.random() * grades.length)];
+                    slot.opened = true;
+                    slot.badge = { menuName: slot.menu, grade: chosenGrade, icon: '⭐', level: 1 };
+                    collectedBadges[slot.menu] = slot.badge;
+                }
+            });
+            localStorage.setItem('school_meal_badges', JSON.stringify(collectedBadges));
+            localStorage.setItem('school_meal_gacha_' + selectedDateStr, JSON.stringify(todayGachaState));
+            renderGachaSlots();
+        }
+
+        function resetTodayGacha() {
+            localStorage.removeItem('school_meal_gacha_' + selectedDateStr);
+            todayGachaState = null;
+            initGachaForToday();
+        }
+
+        function renderDeliciousMenuSelector(menuArray) {
+            const container = document.getElementById('deliciousMenuSelector');
+            container.innerHTML = '';
+
+            if (!menuArray || menuArray.length === 0) return;
+
+            menuArray.forEach(m => {
+                const btn = document.createElement('button');
+                btn.className = "px-3 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 font-bold text-xs transition cursor-pointer flex items-center gap-1";
+                btn.innerHTML = `<span>✨</span><span>${m}</span>`;
+                btn.onclick = () => drawBadgeForMenu(m);
+                container.appendChild(btn);
+            });
+        }
+
+        function drawBadgeForMenu(menuName) {
+            const grades = ['R', 'SR', 'SSR'];
+            const chosenGrade = grades[Math.floor(Math.random() * grades.length)];
+            const icons = chosenGrade === 'SSR' ? ['👑', '💎', '🔥'] : chosenGrade === 'SR' ? ['🍔', '🍗', '🍕'] : ['🍱', '🍲', '🥢'];
+            const chosenIcon = icons[Math.floor(Math.random() * icons.length)];
+
+            const badge = { menuName, grade: chosenGrade, icon: chosenIcon, level: (collectedBadges[menuName] ? (collectedBadges[menuName].level || 1) + 1 : 1) };
+            collectedBadges[menuName] = badge;
+            localStorage.setItem('school_meal_badges', JSON.stringify(collectedBadges));
+
+            const container = document.getElementById('badgeDrawResultContainer');
+            container.classList.remove('hidden');
+            container.innerHTML = `
+                <div class="text-2xl mb-1 animate-capsule">${chosenIcon}</div>
+                <div class="font-extrabold text-sm text-slate-800">[${menuName}] 뱃지 획득!</div>
+                <div class="text-xs font-bold text-amber-600 mt-0.5">등급: ${chosenGrade} (마스터 Lv.${badge.level})</div>
+            `;
+        }
+
+        function addFavoriteKeyword() {
+            const input = document.getElementById('newFavInput');
+            const val = input.value.trim();
+            if (!val) return;
+            if (!favorites.includes(val)) {
+                favorites.push(val);
+                localStorage.setItem('school_meal_favs', JSON.stringify(favorites));
+                input.value = '';
+                renderFavoritesAndDDay();
+                loadMealData();
+            }
+        }
+
+        function removeFavorite(val) {
+            favorites = favorites.filter(f => f !== val);
+            localStorage.setItem('school_meal_favs', JSON.stringify(favorites));
+            renderFavoritesAndDDay();
+            loadMealData();
+        }
+
+        function toggleBoldHighlight(checkbox) {
+            isBoldHighlightOn = checkbox.checked;
+            localStorage.setItem('school_meal_bold', JSON.stringify(isBoldHighlightOn));
+            loadMealData();
+        }
+
+        function renderFavoritesAndDDay() {
+            const container = document.getElementById('favoritesDDayList');
+            document.getElementById('favCountBadge').innerText = favorites.length;
+            container.innerHTML = '';
+
+            if (favorites.length === 0) {
+                container.innerHTML = '<div class="text-xs text-slate-400 py-3 text-center">등록된 즐겨찾기 메뉴가 없습니다.</div>';
+                return;
+            }
+
+            favorites.forEach(fav => {
+                const item = document.createElement('div');
+                item.className = "flex items-center justify-between p-3 rounded-xl bg-sky-50/60 border border-sky-100";
+                item.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="text-amber-500">⭐</span>
+                        <span class="font-bold text-sm text-slate-800">${fav}</span>
+                    </div>
+                    <button onclick="removeFavorite('${fav}')" class="text-xs text-rose-500 hover:text-rose-600 font-semibold px-2 py-1 rounded-lg hover:bg-rose-50 transition cursor-pointer">
+                        삭제
+                    </button>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function addDislikeKeyword() {
+            const input = document.getElementById('newDislikeInput');
+            const val = input.value.trim();
+            if (!val) return;
+            if (!dislikes.includes(val)) {
+                dislikes.push(val);
+                localStorage.setItem('school_meal_dislikes', JSON.stringify(dislikes));
+                input.value = '';
+                renderDislikes();
+                loadMealData();
+            }
+        }
+
+        function removeDislike(val) {
+            dislikes = dislikes.filter(d => d !== val);
+            localStorage.setItem('school_meal_dislikes', JSON.stringify(dislikes));
+            renderDislikes();
+            loadMealData();
+        }
+
+        function renderDislikes() {
+            const container = document.getElementById('dislikeChipsList');
+            container.innerHTML = '';
+
+            if (dislikes.length === 0) {
+                container.innerHTML = '<div class="text-xs text-slate-400 py-2">등록된 기피 메뉴가 없습니다.</div>';
+                return;
+            }
+
+            dislikes.forEach(dis => {
+                const chip = document.createElement('div');
+                chip.className = "flex items-center gap-1.5 px-3 py-1.
