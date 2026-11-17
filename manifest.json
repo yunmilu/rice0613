@@ -2,19 +2,19 @@
   "name": "오늘의 급식 - 고등학교 급식 조회",
   "short_name": "오늘의급식",
   "description": "고등학생을 위한 나이스 연동 맞춤형 급식 조회 및 뱃지 가챠 웹앱",
-  "start_url": "./school_meal_app.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f0f9ff",
   "theme_color": "#0ea5e9",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "./icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon-512.png",
+      "src": "./icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
