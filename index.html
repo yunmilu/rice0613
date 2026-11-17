@@ -2,23 +2,15 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>오늘의 급식 - 고등학교 급식 조회</title>
     
     <!-- PWA 매니페스트 및 웹앱 아이콘 연결 -->
-    <link rel="manifest" href="./manifest.json">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0ea5e9">
-    
-    <!-- 모바일(iOS / Android) 독립 실행(Standalone) 필수 메타 태그 -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="오늘의 급식">
-    
-    <!-- 아이콘 설정 -->
-    <link rel="apple-touch-icon" href="./icon-192.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 
     <!-- Tailwind CSS 로드 -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -83,6 +75,7 @@
                     <button id="todayBtn" class="text-xs font-medium bg-white text-sky-600 hover:bg-sky-50 active:scale-95 transition px-3 py-1.5 rounded-full shadow-sm cursor-pointer">
                         오늘로 이동
                     </button>
+                    <!-- 점 세개 (트로피룸 뱃지 진열대) 버튼 -->
                     <button onclick="openBadgeShowcaseModal()" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 flex items-center justify-center transition backdrop-blur-sm cursor-pointer" title="내 뱃지 진열대">
                         <i data-lucide="more-vertical" class="w-4 h-4"></i>
                     </button>
@@ -126,7 +119,9 @@
                     </button>
                 </div>
 
-                <div id="gachaSlotGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>
+                <div id="gachaSlotGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    <!-- 동적 생성 -->
+                </div>
             </div>
         </section>
 
@@ -178,7 +173,7 @@
             </div>
         </div>
 
-        <!-- 맛도리 뱃지 트로피룸 모달 -->
+        <!-- 🏆 점 세개 - 맛도리 뱃지 트로피룸 모달 -->
         <div id="badgeShowcaseModal" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
             <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-sky-100 overflow-hidden fade-in flex flex-col max-h-[85vh]">
                 <div class="bg-gradient-to-r from-sky-500 to-blue-500 p-4 text-white flex items-center justify-between shrink-0">
@@ -206,7 +201,9 @@
                         </div>
                     </div>
 
-                    <div id="showcaseBadgesGrid" class="grid grid-cols-2 gap-2.5"></div>
+                    <div id="showcaseBadgesGrid" class="grid grid-cols-2 gap-2.5">
+                        <!-- 동적 렌더링 -->
+                    </div>
                 </div>
 
                 <div class="p-4 bg-slate-50 border-t border-slate-100 shrink-0 text-center">
@@ -235,7 +232,9 @@
                     </button>
                 </div>
 
-                <div id="quickDateChips" class="flex gap-1.5 overflow-x-auto pb-1 pt-1 justify-between"></div>
+                <div id="quickDateChips" class="flex gap-1.5 overflow-x-auto pb-1 pt-1 justify-between">
+                    <!-- 동적 렌더링 -->
+                </div>
             </section>
 
             <section class="px-5 pt-5 bg-white">
@@ -255,6 +254,7 @@
 
             <!-- 오전 타임 컨테이너 (조식 + 중식) -->
             <div id="morningContent" class="p-5 space-y-4 bg-white fade-in">
+                <!-- 조식 카드 -->
                 <div class="bg-gradient-to-br from-sky-50/60 to-white rounded-2xl p-4 border border-sky-100 shadow-xs">
                     <div class="flex items-center justify-between mb-3">
                         <div class="flex items-center gap-2">
@@ -267,9 +267,12 @@
                             </div>
                         </div>
                     </div>
-                    <div id="breakfastMenuList" class="space-y-1.5"></div>
+                    <div id="breakfastMenuList" class="space-y-1.5">
+                        <!-- 메뉴 목록 -->
+                    </div>
                 </div>
 
+                <!-- 중식 카드 -->
                 <div class="bg-gradient-to-br from-sky-50/80 to-white rounded-2xl p-4 border border-sky-200 shadow-xs">
                     <div class="flex items-center justify-between mb-3">
                         <div class="flex items-center gap-2">
@@ -282,7 +285,9 @@
                             </div>
                         </div>
                     </div>
-                    <div id="lunchMenuList" class="space-y-1.5"></div>
+                    <div id="lunchMenuList" class="space-y-1.5">
+                        <!-- 메뉴 목록 -->
+                    </div>
                 </div>
             </div>
 
@@ -300,11 +305,13 @@
                             </div>
                         </div>
                     </div>
-                    <div id="dinnerMenuList" class="space-y-1.5"></div>
+                    <div id="dinnerMenuList" class="space-y-1.5">
+                        <!-- 메뉴 목록 -->
+                    </div>
                 </div>
             </div>
 
-            <!-- 오늘의 맛도리 메뉴 뱃지 뽑기 섹션 -->
+            <!-- 찐막! 오늘의 맛도리 메뉴 뱃지 뽑기 섹션 -->
             <section class="p-5 bg-gradient-to-b from-white to-sky-50/60 border-t border-sky-100">
                 <div class="bg-white rounded-2xl p-4 border border-sky-200/80 shadow-sm">
                     <div class="flex items-center justify-between mb-2">
@@ -317,15 +324,20 @@
                         </div>
                     </div>
 
-                    <div id="deliciousMenuSelector" class="flex flex-wrap gap-1.5 my-3"></div>
+                    <div id="deliciousMenuSelector" class="flex flex-wrap gap-1.5 my-3">
+                        <!-- 오늘 급식 메뉴 버튼 칩들이 동적으로 들어감 -->
+                    </div>
 
-                    <div id="badgeDrawResultContainer" class="hidden mt-3 p-3.5 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl text-center fade-in"></div>
+                    <div id="badgeDrawResultContainer" class="hidden mt-3 p-3.5 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl text-center fade-in">
+                        <!-- 뽑힌 뱃지 결과 -->
+                    </div>
                 </div>
             </section>
         </div>
 
         <!-- [뷰 2] 즐겨찾기 및 기피 메뉴 설정 뷰 컨테이너 -->
         <div id="prefViewContainer" class="p-5 space-y-5 bg-white hidden fade-in">
+            <!-- 즐겨찾기 설정 섹션 -->
             <div class="space-y-3">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
@@ -350,11 +362,14 @@
                     </button>
                 </div>
 
-                <div id="favoritesDDayList" class="space-y-2 max-h-48 overflow-y-auto pr-1"></div>
+                <div id="favoritesDDayList" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                    <!-- 동적 D-Day 목록 -->
+                </div>
             </div>
 
             <hr class="border-sky-100">
 
+            <!-- 기피 메뉴 설정 섹션 -->
             <div class="space-y-3">
                 <div class="flex items-center gap-2">
                     <i data-lucide="ban" class="w-5 h-5 text-rose-500"></i>
@@ -370,7 +385,9 @@
                     </button>
                 </div>
 
-                <div id="dislikeChipsList" class="flex flex-wrap gap-1.5 pt-1"></div>
+                <div id="dislikeChipsList" class="flex flex-wrap gap-1.5 pt-1">
+                    <!-- 동적 기피 칩 -->
+                </div>
             </div>
         </div>
 
@@ -381,22 +398,6 @@
 
     <!-- JavaScript 로직 -->
     <script>
-        // 모바일 PWA 독립 실행을 위한 서비스 워커 등록
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('ServiceWorker 등록 성공:', reg.scope))
-                    .catch(err => console.error('ServiceWorker 등록 실패:', err));
-            });
-        }
-
-        function getFormattedDate(dateObj) {
-            const y = dateObj.getFullYear();
-            const m = String(dateObj.getMonth() + 1).padStart(2, '0');
-            const d = String(dateObj.getDate()).padStart(2, '0');
-            return `${y}-${m}-${d}`;
-        }
-
         let currentView = 'meals';
         let currentTimeTab = 'morning';
         let selectedDateStr = getFormattedDate(new Date());
@@ -423,32 +424,39 @@
                 if (i === 0) {
                     sampleDatabase[dStr] = {
                         breakfast: ["흑미밥", "쇠고기미역국", "스팸구이", "배추김치", "요거트"],
-                        breakfastCal: "540.2 kcal",
+                        breakfastCal: "540.2",
                         lunch: ["차조밥", "등심돈까스", "크림스프", "양배추샐러드", "배추김치", "초코칩쿠키"],
-                        lunchCal: "820.5 kcal",
+                        lunchCal: "820.5",
                         dinner: ["참치마요덮밥", "유부장국", "떡볶이", "단무지", "오렌지주스"],
-                        dinnerCal: "690.0 kcal"
+                        dinnerCal: "690.0"
                     };
                 } else if (i === 1) {
                     sampleDatabase[dStr] = {
                         breakfast: ["현미밥", "참치김치찌개", "계란후라이", "김구이", "깍두기"],
-                        breakfastCal: "510.0 kcal",
+                        breakfastCal: "510.0",
                         lunch: ["현미밥", "닭다리살오븐구이", "배추된장국", "무생채", "배추김치", "방울토마토"],
-                        lunchCal: "780.4 kcal",
+                        lunchCal: "780.4",
                         dinner: ["소고기볶음밥", "계란파국", "군만두", "단무지", "사과"],
-                        dinnerCal: "710.2 kcal"
+                        dinnerCal: "710.2"
                     };
                 } else {
                     sampleDatabase[dStr] = {
                         breakfast: ["귀리밥", "순두부찌개", "햄치즈샌드위치", "배추김치", "우유"],
-                        breakfastCal: "530.1 kcal",
+                        breakfastCal: "530.1",
                         lunch: ["쌀밥", "제육볶음", "상추쌈", "콩나물국", "배추김치", "식혜"],
-                        lunchCal: "810.0 kcal",
+                        lunchCal: "810.0",
                         dinner: ["짜장면", "탕수육", "단무지", "군만두", "요플레"],
-                        dinnerCal: "850.3 kcal"
+                        dinnerCal: "850.3"
                     };
                 }
             }
+        }
+
+        function getFormattedDate(dateObj) {
+            const y = dateObj.getFullYear();
+            const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const d = String(dateObj.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
         }
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -462,34 +470,10 @@
             renderDislikes();
             initGachaForToday();
             
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
+            lucide.createIcons();
 
             document.getElementById('datePicker').addEventListener('change', (e) => {
                 selectedDateStr = e.target.value;
-                todayGachaState = JSON.parse(localStorage.getItem('school_meal_gacha_' + selectedDateStr) || 'null');
-                renderQuickDateChips();
-                loadMealData();
-                initGachaForToday();
-            });
-
-            document.getElementById('prevDateBtn').addEventListener('click', () => {
-                const d = new Date(selectedDateStr);
-                d.setDate(d.getDate() - 1);
-                selectedDateStr = getFormattedDate(d);
-                document.getElementById('datePicker').value = selectedDateStr;
-                todayGachaState = JSON.parse(localStorage.getItem('school_meal_gacha_' + selectedDateStr) || 'null');
-                renderQuickDateChips();
-                loadMealData();
-                initGachaForToday();
-            });
-
-            document.getElementById('nextDateBtn').addEventListener('click', () => {
-                const d = new Date(selectedDateStr);
-                d.setDate(d.getDate() + 1);
-                selectedDateStr = getFormattedDate(d);
-                document.getElementById('datePicker').value = selectedDateStr;
                 todayGachaState = JSON.parse(localStorage.getItem('school_meal_gacha_' + selectedDateStr) || 'null');
                 renderQuickDateChips();
                 loadMealData();
@@ -529,7 +513,7 @@
                 renderFavoritesAndDDay();
                 renderDislikes();
             }
-            if (typeof lucide !== 'undefined') lucide.createIcons();
+            lucide.createIcons();
         }
 
         function switchTimeTab(tab) {
@@ -619,9 +603,9 @@
 
             if (!data) {
                 data = {
-                    breakfast: ["급식 정보가 없습니다."], breakfastCal: "0 kcal",
-                    lunch: ["급식 정보가 없습니다."], lunchCal: "0 kcal",
-                    dinner: ["급식 정보가 없습니다."], dinnerCal: "0 kcal"
+                    breakfast: ["급식 정보가 없습니다."], breakfastCal: "0",
+                    lunch: ["급식 정보가 없습니다."], lunchCal: "0",
+                    dinner: ["급식 정보가 없습니다."], dinnerCal: "0"
                 };
             }
 
@@ -690,7 +674,7 @@
 
         function openSchoolModal() {
             document.getElementById('schoolModal').classList.remove('hidden');
-            if (typeof lucide !== 'undefined') lucide.createIcons();
+            lucide.createIcons();
         }
 
         function closeSchoolModal() {
@@ -757,7 +741,7 @@
         function openBadgeShowcaseModal() {
             document.getElementById('badgeShowcaseModal').classList.remove('hidden');
             renderBadgeShowcase();
-            if (typeof lucide !== 'undefined') lucide.createIcons();
+            lucide.createIcons();
         }
 
         function closeBadgeShowcaseModal() {
@@ -865,7 +849,10 @@
 
         function pullGachaOne() {
             const closedSlot = todayGachaState.slots.find(s => !s.opened);
-            if (!closedSlot) return;
+            if (!closedSlot) {
+                alert("오늘의 모든 가챠 상자를 이미 오픈하셨습니다!");
+                return;
+            }
             openSingleSlot(closedSlot.id);
         }
 
@@ -1007,4 +994,15 @@
 
             dislikes.forEach(dis => {
                 const chip = document.createElement('div');
-                chip.className = "flex items-center gap-1.5 px-3 py-1.
+                chip.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 font-bold text-xs";
+                chip.innerHTML = `
+                    <span>🚫</span>
+                    <span>${dis}</span>
+                    <button onclick="removeDislike('${dis}')" class="ml-1 hover:text-rose-800 cursor-pointer">×</button>
+                `;
+                container.appendChild(chip);
+            });
+        }
+    </script>
+</body>
+</html>
