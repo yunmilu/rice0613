@@ -1,13 +1,27 @@
-const CACHE_NAME = 'school-meal-app-v2'; // 이 부분을 v2로 변경합니다!
+const CACHE_NAME = 'school-meal-app-v3';
 const ASSETS_TO_CACHE = [
-  'school_meal_app.html',
-  'manifest.json'
+  './',
+  './index.html',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(ASSETS_TO_CACHE);
+    })
+  );
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+      );
     })
   );
 });
