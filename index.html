@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+   <!DOCTYPE html>
+<html lang="ko">
+<head>
+   <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="오늘의 급식">
+   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>오늘의 급식 - 고등학교 급식 조회</title>
@@ -8,16 +15,25 @@
     <!-- PWA 매니페스트 및 웹앱 아이콘 연결 -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0ea5e9">
+    
+    <!-- 애플(iOS) 및 모바일 브라우저용 홈 화면 아이콘 -->
     <link rel="apple-touch-icon" href="icon-192.png">
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 
+    <!-- Tailwind CSS 및 스타일 등 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+</head>
+    <title>오늘의 급식 - 고등학교 급식 조회</title>
     <!-- Tailwind CSS 로드 -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Inter 및 Noto Sans KR -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+  
+
     <style>
         body {
             font-family: 'Noto Sans KR', 'Inter', sans-serif;
@@ -61,7 +77,7 @@
 <body class="min-h-screen flex flex-col items-center justify-start py-6 px-4 sm:px-6 text-slate-800">
 
     <!-- 메인 앱 컨테이너 -->
-    <div class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-sky-100/80 border border-sky-100 overflow-hidden mb-8">
+    <div class="w-full max-w-md bg-white rounded-3xl shadow-xl shadow-sky-100/80 border border-sky-100 overflow-hidden">
         
         <!-- 상단 헤더 영역 -->
         <header class="bg-gradient-to-r from-sky-500 to-sky-400 p-6 text-white">
@@ -241,506 +257,521 @@
                 <div class="grid grid-cols-2 gap-2 p-1.5 bg-sky-50 rounded-2xl border border-sky-100">
                     <button id="tabMorning" onclick="switchTimeTab('morning')" 
                         class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-bold text-sm transition-all shadow-sm bg-white text-sky-600 cursor-pointer">
-                        <i data-lucide="sun" class="w-4 h-4"></i>
-                        <span>오전 (조·중식)</span>
+                        <i data-lucide="sun" class="w-4 h-4 text-amber-500"></i>
+                        <span>오전 (조식·중식)</span>
                     </button>
-                    <button id="tabEvening" onclick="switchTimeTab('evening')" 
+                    <button id="tabAfternoon" onclick="switchTimeTab('afternoon')" 
                         class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-bold text-sm transition-all text-slate-500 hover:text-sky-600 cursor-pointer">
-                        <i data-lucide="moon" class="w-4 h-4"></i>
+                        <i data-lucide="moon" class="w-4 h-4 text-indigo-400"></i>
                         <span>오후 (석식)</span>
                     </button>
                 </div>
             </section>
 
-            <!-- 오전 타임 컨테이너 (조식 + 중식) -->
-            <div id="morningContent" class="p-5 space-y-4 bg-white fade-in">
-                <!-- 조식 카드 -->
-                <div class="bg-gradient-to-br from-sky-50/60 to-white rounded-2xl p-4 border border-sky-100 shadow-xs">
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-2">
-                            <span class="p-2 bg-amber-100 text-amber-600 rounded-xl">
-                                <i data-lucide="sunrise" class="w-4 h-4"></i>
-                            </span>
-                            <div>
-                                <h3 class="font-extrabold text-sm text-slate-800">조식</h3>
-                                <p class="text-[11px] text-slate-400" id="breakfastCalories">- kcal</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="breakfastMenuList" class="space-y-1.5">
-                        <!-- 메뉴 목록 -->
-                    </div>
-                </div>
-
-                <!-- 중식 카드 -->
-                <div class="bg-gradient-to-br from-sky-50/80 to-white rounded-2xl p-4 border border-sky-200 shadow-xs">
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-2">
-                            <span class="p-2 bg-sky-100 text-sky-600 rounded-xl">
-                                <i data-lucide="sun" class="w-4 h-4"></i>
-                            </span>
-                            <div>
-                                <h3 class="font-extrabold text-sm text-slate-800">중식</h3>
-                                <p class="text-[11px] text-slate-400" id="lunchCalories">- kcal</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="lunchMenuList" class="space-y-1.5">
-                        <!-- 메뉴 목록 -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- 오후 타임 컨테이너 (석식) -->
-            <div id="eveningContent" class="p-5 space-y-4 bg-white fade-in hidden">
-                <div class="bg-gradient-to-br from-indigo-50/60 to-white rounded-2xl p-4 border border-indigo-100 shadow-xs">
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-2">
-                            <span class="p-2 bg-indigo-100 text-indigo-600 rounded-xl">
-                                <i data-lucide="moon" class="w-4 h-4"></i>
-                            </span>
-                            <div>
-                                <h3 class="font-extrabold text-sm text-slate-800">석식</h3>
-                                <p class="text-[11px] text-slate-400" id="dinnerCalories">- kcal</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="dinnerMenuList" class="space-y-1.5">
-                        <!-- 메뉴 목록 -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- 찐막! 오늘의 맛도리 메뉴 뱃지 뽑기 섹션 -->
-            <section class="p-5 bg-gradient-to-b from-white to-sky-50/60 border-t border-sky-100">
-                <div class="bg-white rounded-2xl p-4 border border-sky-200/80 shadow-sm">
-                    <div class="flex items-center justify-between mb-2">
-                        <div class="flex items-center gap-2">
-                            <span class="text-xl">🎖️</span>
-                            <div>
-                                <h3 class="font-extrabold text-sm text-slate-800">오늘의 맛도리 메뉴 뱃지 뽑기</h3>
-                                <p class="text-[11px] text-slate-400">맛있게 먹은 메뉴를 골라 기념 뱃지를 수집하세요!</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="deliciousMenuSelector" class="flex flex-wrap gap-1.5 my-3">
-                        <!-- 오늘 급식 메뉴 버튼 칩들이 동적으로 들어감 -->
-                    </div>
-
-                    <div id="badgeDrawResultContainer" class="hidden mt-3 p-3.5 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl text-center fade-in">
-                        <!-- 뽑힌 뱃지 결과 -->
-                    </div>
-                </div>
-            </section>
+            <main id="mealContent" class="p-5 space-y-4 min-h-[320px] bg-white">
+                <!-- 동적 렌더링 -->
+            </main>
         </div>
 
-        <!-- [뷰 2] 즐겨찾기 및 기피 메뉴 설정 뷰 컨테이너 -->
-        <div id="prefViewContainer" class="p-5 space-y-5 bg-white hidden fade-in">
-            <!-- 즐겨찾기 설정 섹션 -->
-            <div class="space-y-3">
+        <!-- 하단 맛도리 메뉴 뱃지 뽑기 섹션 -->
+        <section id="deliciousBadgeSection" class="bg-gradient-to-b from-white to-sky-50/70 p-5 border-t border-sky-100 space-y-4">
+            <div class="bg-white rounded-2xl p-4 border border-sky-200/80 shadow-xs space-y-3">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                        <i data-lucide="star" class="w-5 h-5 text-amber-500 fill-amber-400"></i>
-                        <h3 class="font-bold text-slate-800 text-sm">즐겨찾기 메뉴 & D-Day</h3>
+                        <span class="text-xl">🏅</span>
+                        <div>
+                            <h2 class="font-extrabold text-sm text-slate-800 flex items-center gap-1.5">
+                                <span>오늘의 맛도리 메뉴 뱃지 뽑기</span>
+                                <span class="text-[10px] font-bold bg-sky-100 text-sky-600 px-2 py-0.5 rounded-full">BADGE GACHA</span>
+                            </h2>
+                            <p class="text-[11px] text-slate-400">오늘 맛있게 먹은 메뉴를 고르고 기념 뱃지를 뽑아보세요!</p>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-[11px] text-slate-400 font-medium">굵은 선 강조</span>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="boldHighlightToggle" onchange="toggleBoldHighlight(this)" class="sr-only peer">
-                            <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-sky-500"></div>
-                        </label>
+                    <span id="badgeTotalCount" class="text-[11px] font-extrabold text-sky-600 bg-sky-50 border border-sky-200 px-2.5 py-1 rounded-full">
+                        보유 0개
+                    </span>
+                </div>
+
+                <div>
+                    <div class="text-[11px] font-bold text-slate-500 mb-1.5 flex items-center justify-between">
+                        <span>1. 오늘 급식 중 맛있게 먹은 메뉴 선택</span>
+                        <span id="selectedBadgeMenuLabel" class="text-sky-600 font-extrabold">선택된 메뉴 없음</span>
+                    </div>
+                    <div id="todayDeliciousMenuChips" class="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto p-2 bg-sky-50/50 rounded-xl border border-sky-100">
+                        <!-- 동적 렌더링 -->
                     </div>
                 </div>
-                
+
+                <button id="craftMenuBadgeBtn" onclick="craftSelectedMenuBadge()" disabled
+                    class="w-full py-2.5 px-4 rounded-xl font-bold text-xs transition flex items-center justify-center gap-1.5 bg-slate-100 text-slate-400 cursor-not-allowed">
+                    <i data-lucide="award" class="w-4 h-4"></i>
+                    <span>위에서 맛있게 먹은 메뉴를 먼저 선택해주세요</span>
+                </button>
+
+                <div id="newlyCraftedBadgeBox" class="hidden rounded-xl p-3 bg-gradient-to-r from-sky-500 to-blue-500 text-white shadow-sm fade-in">
+                    <!-- 동적 렌더링 -->
+                </div>
+
+                <div class="pt-1 border-t border-slate-100">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-[11px] font-bold text-slate-600 flex items-center gap-1">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i>
+                            <span>나의 맛도리 뱃지 도감</span>
+                        </span>
+                        <button onclick="clearCollectedBadges()" class="text-[10px] text-slate-400 hover:text-rose-500 transition cursor-pointer">
+                            도감 비우기
+                        </button>
+                    </div>
+                    <div id="collectedBadgesGrid" class="grid grid-cols-3 gap-2">
+                        <!-- 동적 렌더링 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- [뷰 2] 즐겨찾기 D-Day & 기피 설정 탭 -->
+        <div id="prefViewContainer" class="hidden p-5 space-y-5 bg-white min-h-[420px] fade-in">
+            <section class="bg-sky-50/50 rounded-2xl p-4 border border-sky-100 space-y-3">
+                <div class="flex items-center justify-between">
+                    <h2 class="font-bold text-slate-800 text-sm flex items-center gap-1.5">
+                        <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-400"></i>
+                        <span>즐겨찾기 메뉴 & D-Day</span>
+                    </h2>
+                    <button onclick="scanUpcomingMealsForFavorites()" class="text-[11px] font-semibold text-sky-600 bg-white border border-sky-200 px-2.5 py-1 rounded-lg hover:bg-sky-50 transition flex items-center gap-1 cursor-pointer">
+                        <i data-lucide="refresh-cw" class="w-3 h-3"></i>
+                        <span>일정 재검색</span>
+                    </button>
+                </div>
+
+                <label class="flex items-center justify-between bg-white p-3 rounded-xl border border-sky-100 cursor-pointer">
+                    <div>
+                        <div class="text-xs font-bold text-slate-700">급식표에서 즐겨찾기 메뉴 굵게 강조</div>
+                        <div class="text-[11px] text-slate-400">활성화 시 메뉴판에 굵은 글씨와 굵은 밑줄로 표시됩니다</div>
+                    </div>
+                    <input type="checkbox" id="boldFavToggle" class="w-4 h-4 accent-sky-500 cursor-pointer" onchange="toggleBoldFavorite(this.checked)">
+                </label>
+
                 <div class="flex gap-2">
-                    <input type="text" id="newFavInput" placeholder="예: 돈까스, 치킨, 탕수육..." 
-                        class="flex-1 bg-sky-50/70 border border-sky-200 rounded-xl px-3.5 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-sky-400 focus:bg-white transition"
-                        onkeydown="if(event.key === 'Enter') addFavoriteKeyword()">
-                    <button onclick="addFavoriteKeyword()" class="bg-sky-500 hover:bg-sky-600 active:scale-95 text-white font-bold text-xs px-4 py-2 rounded-xl transition shadow-sm cursor-pointer">
+                    <input type="text" id="favMenuInput" placeholder="예: 돈까스, 치킨, 스파게티..." 
+                        class="flex-1 bg-white border border-sky-200 rounded-xl px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-sky-400"
+                        onkeydown="if(event.key === 'Enter') addFavoriteMenu()">
+                    <button onclick="addFavoriteMenu()" class="bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition cursor-pointer">
                         추가
                     </button>
                 </div>
 
-                <div id="favoritesDDayList" class="space-y-2 max-h-48 overflow-y-auto pr-1">
-                    <!-- 동적 D-Day 목록 -->
+                <div id="favoriteDdayList" class="space-y-2 pt-1">
+                    <!-- 동적 렌더링 -->
                 </div>
-            </div>
+            </section>
 
-            <hr class="border-sky-100">
-
-            <!-- 기피 메뉴 설정 섹션 -->
-            <div class="space-y-3">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="ban" class="w-5 h-5 text-rose-500"></i>
-                    <h3 class="font-bold text-slate-800 text-sm">기피 메뉴 (취소선 표시)</h3>
+            <section class="bg-slate-50 rounded-2xl p-4 border border-slate-200/80 space-y-3">
+                <div>
+                    <h2 class="font-bold text-slate-800 text-sm flex items-center gap-1.5">
+                        <i data-lucide="ban" class="w-4 h-4 text-rose-500"></i>
+                        <span>기피 메뉴 설정 (취소선 표시)</span>
+                    </h2>
+                    <p class="text-[11px] text-slate-400 mt-0.5">등록한 키워드가 포함된 메뉴는 급식표에 취소선으로 표시됩니다.</p>
                 </div>
-                
+
                 <div class="flex gap-2">
-                    <input type="text" id="newDislikeInput" placeholder="예: 오이, 가지, 브로콜리..." 
-                        class="flex-1 bg-sky-50/70 border border-sky-200 rounded-xl px-3.5 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-sky-400 focus:bg-white transition"
-                        onkeydown="if(event.key === 'Enter') addDislikeKeyword()">
-                    <button onclick="addDislikeKeyword()" class="bg-rose-500 hover:bg-rose-600 active:scale-95 text-white font-bold text-xs px-4 py-2 rounded-xl transition shadow-sm cursor-pointer">
-                        등록
+                    <input type="text" id="dislikedMenuInput" placeholder="예: 가지, 오이, 시금치..." 
+                        class="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-rose-400"
+                        onkeydown="if(event.key === 'Enter') addDislikedMenu()">
+                    <button onclick="addDislikedMenu()" class="bg-slate-700 hover:bg-slate-800 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition cursor-pointer">
+                        추가
                     </button>
                 </div>
 
-                <div id="dislikeChipsList" class="flex flex-wrap gap-1.5 pt-1">
-                    <!-- 동적 기피 칩 -->
+                <div id="dislikedMenuTags" class="flex flex-wrap gap-1.5">
+                    <!-- 동적 렌더링 -->
                 </div>
-            </div>
+            </section>
         </div>
-
-        <footer class="p-4 bg-sky-50/80 text-center text-xs text-slate-400 border-t border-sky-100">
-            오늘의 급식 웹앱 · 고등학생 맞춤형 식단 조회
-        </footer>
     </div>
 
-    <!-- JavaScript 로직 -->
     <script>
-        let currentView = 'meals';
+        // 날짜 유틸 함수
+        function getFormattedDate(offsetDays = 0) {
+            const date = new Date();
+            date.setDate(date.getDate() + offsetDays);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function getDayOfWeekKor(dateString) {
+            const days = ['일', '월', '화', '수', '목', '금', '토'];
+            const date = new Date(dateString);
+            return days[date.getDay()];
+        }
+
+        // 5일치 샘플 데이터
+        const SAMPLE_MEAL_DATA = {
+            [getFormattedDate(-1)]: {
+                breakfast: { kcal: '680 kcal', menus: [{ name: '현미밥' }, { name: '쇠고기미역국' }, { name: '스팸계란말이' }, { name: '배추김치' }, { name: '요구르트' }] },
+                lunch: { kcal: '890 kcal', menus: [{ name: '기장밥' }, { name: '어묵꼬치우동국' }, { name: '수제등심돈까스 & 소스' }, { name: '양배추샐러드' }, { name: '깍두기' }, { name: '사과주스' }] },
+                dinner: { kcal: '820 kcal', menus: [{ name: '찰보리밥' }, { name: '김치찌개' }, { name: '오리훈제부추무침' }, { name: '고구마맛탕' }, { name: '열무김치' }] }
+            },
+            [getFormattedDate(0)]: {
+                breakfast: { kcal: '650 kcal', menus: [{ name: '크루아상샌드위치' }, { name: '양송이크림스프' }, { name: '웨지감자튀김' }, { name: '우유' }, { name: '방울토마토' }] },
+                lunch: { kcal: '935 kcal', menus: [{ name: '차조밥' }, { name: '순두부찌개' }, { name: '간장마늘순살치킨' }, { name: '잡채' }, { name: '배추김치' }, { name: '초코칩쿠키' }] },
+                dinner: { kcal: '840 kcal', menus: [{ name: '참치마요덮밥' }, { name: '유부된장국' }, { name: '회오리감자' }, { name: '단무지무침' }, { name: '배추김치' }] }
+            },
+            [getFormattedDate(1)]: {
+                breakfast: { kcal: '690 kcal', menus: [{ name: '흰쌀밥' }, { name: '북어콩나물국' }, { name: '돈육메추리알장조림' }, { name: '조미김' }, { name: '배추김치' }] },
+                lunch: { kcal: '910 kcal', menus: [{ name: '흑미밥' }, { name: '부대찌개' }, { name: '고등어카레구이' }, { name: '두부조림' }, { name: '총각김치' }, { name: '청포도푸딩' }] },
+                dinner: { kcal: '860 kcal', menus: [{ name: '카레라이스' }, { name: '미소장국' }, { name: '왕새우튀김 & 타르타르소스' }, { name: '오이피클' }, { name: '배추김치' }] }
+            },
+            [getFormattedDate(2)]: {
+                breakfast: { kcal: '640 kcal', menus: [{ name: '전복야채죽' }, { name: '소떡소떡' }, { name: '나박김치' }, { name: '바나나우유' }] },
+                lunch: { kcal: '950 kcal', menus: [{ name: '발아현미밥' }, { name: '갈비탕' }, { name: '해물파전' }, { name: '도토리묵무침' }, { name: '석박지' }, { name: '식혜' }] },
+                dinner: { kcal: '830 kcal', menus: [{ name: '혼합잡곡밥' }, { name: '감자수제비국' }, { name: '제육볶음 & 상추쌈' }, { name: '계란찜' }, { name: '배추김치' }] }
+            },
+            [getFormattedDate(3)]: {
+                breakfast: { kcal: '710 kcal', menus: [{ name: '프렌치토스트' }, { name: '베이컨스크램블' }, { name: '콘샐러드' }, { name: '오렌지주스' }] },
+                lunch: { kcal: '920 kcal', menus: [{ name: '로제스파게티' }, { name: '마늘바게트' }, { name: '치킨텐더샐러드' }, { name: '수제오이피클' }, { name: '탄산음료' }] },
+                dinner: { kcal: '810 kcal', menus: [{ name: '수수밥' }, { name: '들깨시래기국' }, { name: '함박스테이크 & 파인애플' }, { name: '감자채볶음' }, { name: '배추김치' }] }
+            }
+        };
+
+        // 전역 상태
+        let currentSelectedDate = getFormattedDate(0);
         let currentTimeTab = 'morning';
-        let selectedDateStr = getFormattedDate(new Date());
-        let currentSchoolCode = "J10";
-        let currentSchoolCodeNo = "7530104";
-        let currentSchoolNameText = "한빛고등학교 (샘플)";
-        let neisApiKey = "ab1871732b2145429c739b45ef7f9ef6";
+        let currentMainView = 'meals';
 
-        let favorites = JSON.parse(localStorage.getItem('school_meal_favs') || '["돈까스", "치킨", "불고기", "짜장면"]');
-        let dislikes = JSON.parse(localStorage.getItem('school_meal_dislikes') || '["오이", "가지"]');
-        let isBoldHighlightOn = JSON.parse(localStorage.getItem('school_meal_bold') || 'false');
-        let collectedBadges = JSON.parse(localStorage.getItem('school_meal_badges') || '{}');
-        let todayGachaState = JSON.parse(localStorage.getItem('school_meal_gacha_' + selectedDateStr) || 'null');
+        let selectedSchool = JSON.parse(localStorage.getItem('selectedSchool')) || null;
+        let neisApiKey = 'ab1871732b2145429c739b45ef7f9ef6';
+        const mealApiCache = {};
 
-        const sampleDatabase = {};
+        let favoriteMenus = JSON.parse(localStorage.getItem('favoriteMenus')) || ['돈까스', '치킨'];
+        let dislikedMenus = JSON.parse(localStorage.getItem('dislikedMenus')) || [];
+        let boldFavoriteEnabled = JSON.parse(localStorage.getItem('boldFavoriteEnabled') ?? 'true');
+        let favoriteMatchesCache = {};
 
-        function initSampleDatabase() {
-            const today = new Date();
-            for (let i = -2; i <= 3; i++) {
-                const d = new Date(today);
-                d.setDate(today.getDate() + i);
-                const dStr = getFormattedDate(d);
-                
-                if (i === 0) {
-                    sampleDatabase[dStr] = {
-                        breakfast: ["흑미밥", "쇠고기미역국", "스팸구이", "배추김치", "요거트"],
-                        breakfastCal: "540.2",
-                        lunch: ["차조밥", "등심돈까스", "크림스프", "양배추샐러드", "배추김치", "초코칩쿠키"],
-                        lunchCal: "820.5",
-                        dinner: ["참치마요덮밥", "유부장국", "떡볶이", "단무지", "오렌지주스"],
-                        dinnerCal: "690.0"
-                    };
-                } else if (i === 1) {
-                    sampleDatabase[dStr] = {
-                        breakfast: ["현미밥", "참치김치찌개", "계란후라이", "김구이", "깍두기"],
-                        breakfastCal: "510.0",
-                        lunch: ["현미밥", "닭다리살오븐구이", "배추된장국", "무생채", "배추김치", "방울토마토"],
-                        lunchCal: "780.4",
-                        dinner: ["소고기볶음밥", "계란파국", "군만두", "단무지", "사과"],
-                        dinnerCal: "710.2"
-                    };
-                } else {
-                    sampleDatabase[dStr] = {
-                        breakfast: ["귀리밥", "순두부찌개", "햄치즈샌드위치", "배추김치", "우유"],
-                        breakfastCal: "530.1",
-                        lunch: ["쌀밥", "제육볶음", "상추쌈", "콩나물국", "배추김치", "식혜"],
-                        lunchCal: "810.0",
-                        dinner: ["짜장면", "탕수육", "단무지", "군만두", "요플레"],
-                        dinnerCal: "850.3"
-                    };
-                }
-            }
+        let todayGachaItems = [];
+        let selectedBadgeMenu = null;
+        let collectedBadges = JSON.parse(localStorage.getItem('collectedMealBadges')) || [];
+
+        // DOM 요소
+        const datePicker = document.getElementById('datePicker');
+        const prevDateBtn = document.getElementById('prevDateBtn');
+        const nextDateBtn = document.getElementById('nextDateBtn');
+        const todayBtn = document.getElementById('todayBtn');
+        const quickDateChips = document.getElementById('quickDateChips');
+        const tabMorning = document.getElementById('tabMorning');
+        const tabAfternoon = document.getElementById('tabAfternoon');
+        const mealContent = document.getElementById('mealContent');
+        const currentSchoolNameEl = document.getElementById('currentSchoolName');
+        const schoolModal = document.getElementById('schoolModal');
+        const schoolSearchInput = document.getElementById('schoolSearchInput');
+        const schoolSearchResults = document.getElementById('schoolSearchResults');
+
+        const navMealBtn = document.getElementById('navMealBtn');
+        const navPrefBtn = document.getElementById('navPrefBtn');
+        const mealViewContainer = document.getElementById('mealViewContainer');
+        const prefViewContainer = document.getElementById('prefViewContainer');
+        const favCountBadge = document.getElementById('favCountBadge');
+        const boldFavToggle = document.getElementById('boldFavToggle');
+
+        // 가챠 등급 분류
+        function determineMenuGrade(menuName) {
+            const isFav = favoriteMenus.some(fav => menuName.includes(fav));
+            if (isFav) return 'SSR';
+            const ssrKeywords = ['돈까스', '치킨', '갈비', '스테이크', '불고기', '제육', '삼겹', '새우튀김', '탕수육', '피자', '스파게티', '파스타', '햄버거', '오리훈제'];
+            if (ssrKeywords.some(k => menuName.includes(k))) return 'SSR';
+            const srKeywords = ['찌개', '탕', '전골', '우동', '국수', '잡채', '계란말이', '전', '만두', '떡볶이', '케이크', '쿠키', '푸딩', '주스', '식혜'];
+            if (srKeywords.some(k => menuName.includes(k))) return 'SR';
+            return 'R';
         }
 
-        function getFormattedDate(dateObj) {
-            const y = dateObj.getFullYear();
-            const m = String(dateObj.getMonth() + 1).padStart(2, '0');
-            const d = String(dateObj.getDate()).padStart(2, '0');
-            return `${y}-${m}-${d}`;
+        function getGachaStorageKey() {
+            const today = getFormattedDate(0);
+            const schoolKey = selectedSchool ? selectedSchool.code : 'SAMPLE';
+            return `lunch_gacha_${schoolKey}_${today}`;
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            initSampleDatabase();
-            document.getElementById('datePicker').value = selectedDateStr;
-            document.getElementById('boldHighlightToggle').checked = isBoldHighlightOn;
-            
-            renderQuickDateChips();
-            loadMealData();
-            renderFavoritesAndDDay();
-            renderDislikes();
-            initGachaForToday();
-            
-            lucide.createIcons();
+        async function initTodayLunchGacha(forceReset = false) {
+            const today = getFormattedDate(0);
+            let todayData = null;
 
-            document.getElementById('datePicker').addEventListener('change', (e) => {
-                selectedDateStr = e.target.value;
-                todayGachaState = JSON.parse(localStorage.getItem('school_meal_gacha_' + selectedDateStr) || 'null');
-                renderQuickDateChips();
-                loadMealData();
-                initGachaForToday();
-            });
-
-            document.getElementById('todayBtn').addEventListener('click', () => {
-                selectedDateStr = getFormattedDate(new Date());
-                document.getElementById('datePicker').value = selectedDateStr;
-                todayGachaState = JSON.parse(localStorage.getItem('school_meal_gacha_' + selectedDateStr) || 'null');
-                renderQuickDateChips();
-                loadMealData();
-                initGachaForToday();
-            });
-        });
-
-        function switchMainView(view) {
-            currentView = view;
-            const mealContainer = document.getElementById('mealViewContainer');
-            const prefContainer = document.getElementById('prefViewContainer');
-            const navMeal = document.getElementById('navMealBtn');
-            const navPref = document.getElementById('navPrefBtn');
-            const gachaSection = document.getElementById('lunchGachaSection');
-
-            if (view === 'meals') {
-                mealContainer.classList.remove('hidden');
-                prefContainer.classList.add('hidden');
-                gachaSection.classList.remove('hidden');
-                navMeal.className = "py-3 text-sm font-bold text-sky-600 border-b-2 border-sky-500 bg-white flex items-center justify-center gap-1.5 transition cursor-pointer";
-                navPref.className = "py-3 text-sm font-bold text-slate-500 border-b-2 border-transparent hover:text-sky-600 flex items-center justify-center gap-1.5 transition cursor-pointer";
-            } else {
-                mealContainer.classList.add('hidden');
-                prefContainer.classList.remove('hidden');
-                gachaSection.classList.add('hidden');
-                navPref.className = "py-3 text-sm font-bold text-sky-600 border-b-2 border-sky-500 bg-white flex items-center justify-center gap-1.5 transition cursor-pointer";
-                navMeal.className = "py-3 text-sm font-bold text-slate-500 border-b-2 border-transparent hover:text-sky-600 flex items-center justify-center gap-1.5 transition cursor-pointer";
-                renderFavoritesAndDDay();
-                renderDislikes();
-            }
-            lucide.createIcons();
-        }
-
-        function switchTimeTab(tab) {
-            currentTimeTab = tab;
-            const morningDiv = document.getElementById('morningContent');
-            const eveningDiv = document.getElementById('eveningContent');
-            const tabM = document.getElementById('tabMorning');
-            const tabE = document.getElementById('tabEvening');
-
-            if (tab === 'morning') {
-                morningDiv.classList.remove('hidden');
-                eveningDiv.classList.add('hidden');
-                tabM.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-bold text-sm transition-all shadow-sm bg-white text-sky-600 cursor-pointer";
-                tabE.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-bold text-sm transition-all text-slate-500 hover:text-sky-600 cursor-pointer";
-            } else {
-                morningDiv.classList.add('hidden');
-                eveningDiv.classList.remove('hidden');
-                tabE.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-bold text-sm transition-all shadow-sm bg-white text-sky-600 cursor-pointer";
-                tabM.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-bold text-sm transition-all text-slate-500 hover:text-sky-600 cursor-pointer";
-            }
-        }
-
-        function renderQuickDateChips() {
-            const container = document.getElementById('quickDateChips');
-            container.innerHTML = '';
-            
-            const todayObj = new Date();
-            for (let i = -1; i <= 2; i++) {
-                const d = new Date(todayObj);
-                d.setDate(todayObj.getDate() + i);
-                const dStr = getFormattedDate(d);
-                const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
-                const label = i === 0 ? '오늘' : `${d.getDate()}일(${dayNames[d.getDay()]})`;
-
-                const btn = document.createElement('button');
-                btn.className = `px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${dStr === selectedDateStr ? 'bg-sky-500 text-white shadow-sm' : 'bg-sky-50 text-sky-600 hover:bg-sky-100'}`;
-                btn.innerText = label;
-                btn.onclick = () => {
-                    selectedDateStr = dStr;
-                    document.getElementById('datePicker').value = dStr;
-                    todayGachaState = JSON.parse(localStorage.getItem('school_meal_gacha_' + selectedDateStr) || 'null');
-                    renderQuickDateChips();
-                    loadMealData();
-                    initGachaForToday();
-                };
-                container.appendChild(btn);
-            }
-        }
-
-        async function loadMealData() {
-            const dateClean = selectedDateStr.replace(/-/g, '');
-            let data = null;
-
-            if (currentSchoolCodeNo === "7530104" && sampleDatabase[selectedDateStr]) {
-                data = sampleDatabase[selectedDateStr];
-            } else {
+            if (selectedSchool) {
                 try {
-                    const url = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${neisApiKey}&Type=json&ATPT_OFCDC_SC_CODE=${currentSchoolCode}&SD_SCHUL_CODE=${currentSchoolCodeNo}&MLSV_YMD=${dateClean}`;
-                    const res = await fetch(url);
-                    const json = await res.json();
-                    
-                    if (json.mealServiceDietInfo) {
-                        const rows = json.mealServiceDietInfo[1].row;
-                        data = { breakfast: [], breakfastCal: "-", lunch: [], lunchCal: "-", dinner: [], dinnerCal: "-" };
-                        
-                        rows.forEach(r => {
-                            const cleanMenu = r.DDISH_NM.replace(/<br\/>/g, '\n').split('\n')
-                                .map(m => m.replace(/[\s\d\.\(\)]+/g, '').trim())
-                                .filter(m => m.length > 0);
-
-                            if (r.MMEAL_SC_CODE === '1') {
-                                data.breakfast = cleanMenu;
-                                data.breakfastCal = r.CAL_INFO;
-                            } else if (r.MMEAL_SC_CODE === '2') {
-                                data.lunch = cleanMenu;
-                                data.lunchCal = r.CAL_INFO;
-                            } else if (r.MMEAL_SC_CODE === '3') {
-                                data.dinner = cleanMenu;
-                                data.dinnerCal = r.CAL_INFO;
-                            }
-                        });
-                    }
+                    todayData = await fetchNeisMeals(today);
                 } catch (e) {
-                    console.error("NEIS API Load Error:", e);
+                    todayData = null;
                 }
+            } else {
+                todayData = SAMPLE_MEAL_DATA[today];
             }
 
-            if (!data) {
-                data = {
-                    breakfast: ["급식 정보가 없습니다."], breakfastCal: "0",
-                    lunch: ["급식 정보가 없습니다."], lunchCal: "0",
-                    dinner: ["급식 정보가 없습니다."], dinnerCal: "0"
-                };
-            }
-
-            renderMenuList('breakfastMenuList', 'breakfastCalories', data.breakfast, data.breakfastCal);
-            renderMenuList('lunchMenuList', 'lunchCalories', data.lunch, data.lunchCal);
-            renderMenuList('dinnerMenuList', 'dinnerCalories', data.dinner, data.dinnerCal);
-            renderDeliciousMenuSelector(data.lunch);
-        }
-
-        function renderMenuList(containerId, calId, menuArray, calorieText) {
-            const container = document.getElementById(containerId);
-            const calEl = document.getElementById(calId);
-            container.innerHTML = '';
-            calEl.innerText = calorieText ? `${calorieText}` : '- kcal';
-
-            if (!menuArray || menuArray.length === 0) {
-                container.innerHTML = '<div class="text-xs text-slate-400 py-2">급식 메뉴가 등록되지 않았습니다.</div>';
+            const lunchMenus = todayData?.lunch?.menus || [];
+            if (lunchMenus.length === 0) {
+                todayGachaItems = [];
+                renderTodayGacha();
                 return;
             }
 
-            menuArray.forEach(item => {
-                const isFav = favorites.includes(item);
-                const isDis = dislikes.includes(item);
+            const storageKey = getGachaStorageKey();
+            const savedRevealed = !forceReset ? JSON.parse(localStorage.getItem(storageKey) || 'null') : null;
 
-                const itemDiv = document.createElement('div');
-                let className = "flex items-center justify-between p-2 rounded-xl transition ";
-                
-                if (isFav) {
-                    className += isBoldHighlightOn ? "bg-amber-50 border border-amber-300 font-black text-slate-900 shadow-xs" : "bg-amber-50/70 border border-amber-200 font-bold text-slate-900";
-                } else if (isDis) {
-                    className += "bg-slate-50 text-slate-400 line-through opacity-75";
-                } else {
-                    className += "bg-sky-50/40 hover:bg-sky-50 text-slate-700 font-medium";
-                }
-
-                itemDiv.className = className;
-
-                let badgeHtml = '';
-                if (isFav) badgeHtml = '<span class="text-xs">⭐</span>';
-                if (isDis) badgeHtml = '<span class="text-xs">🚫</span>';
-
-                itemDiv.innerHTML = `
-                    <div class="flex items-center gap-2 cursor-pointer flex-1" onclick="toggleItemFavorite('${item}')">
-                        <span>${item}</span>
-                        ${badgeHtml}
-                    </div>
-                    <button onclick="event.stopPropagation(); toggleItemFavorite('${item}')" class="text-xs px-2 py-1 rounded-lg text-slate-400 hover:text-amber-500 transition cursor-pointer">
-                        ${isFav ? '★' : '☆'}
-                    </button>
-                `;
-                container.appendChild(itemDiv);
-            });
-        }
-
-        function toggleItemFavorite(item) {
-            const idx = favorites.indexOf(item);
-            if (idx >= 0) {
-                favorites.splice(idx, 1);
+            if (savedRevealed && Array.isArray(savedRevealed) && savedRevealed.length === lunchMenus.length) {
+                todayGachaItems = savedRevealed.map(item => ({
+                    ...item,
+                    grade: determineMenuGrade(item.name)
+                }));
             } else {
-                favorites.push(item);
+                const shuffled = [...lunchMenus].sort(() => Math.random() - 0.5);
+                todayGachaItems = shuffled.map(m => ({
+                    name: m.name,
+                    grade: determineMenuGrade(m.name),
+                    revealed: false
+                }));
+                localStorage.setItem(storageKey, JSON.stringify(todayGachaItems));
             }
-            localStorage.setItem('school_meal_favs', JSON.stringify(favorites));
-            loadMealData();
-            renderFavoritesAndDDay();
+
+            renderTodayGacha();
         }
 
-        function openSchoolModal() {
-            document.getElementById('schoolModal').classList.remove('hidden');
+        function saveTodayGachaState() {
+            localStorage.setItem(getGachaStorageKey(), JSON.stringify(todayGachaItems));
+        }
+
+        function pullGachaOne() {
+            const unrevealedIndices = todayGachaItems.map((item, idx) => (!item.revealed ? idx : -1)).filter(idx => idx !== -1);
+            if (unrevealedIndices.length === 0) return;
+            const randomIndex = unrevealedIndices[Math.floor(Math.random() * unrevealedIndices.length)];
+            todayGachaItems[randomIndex].revealed = true;
+            saveTodayGachaState();
+            renderTodayGacha(randomIndex);
+        }
+
+        function pullGachaSingleSlot(index) {
+            if (!todayGachaItems[index] || todayGachaItems[index].revealed) return;
+            todayGachaItems[index].revealed = true;
+            saveTodayGachaState();
+            renderTodayGacha(index);
+        }
+
+        function pullGachaAll() {
+            todayGachaItems.forEach(item => item.revealed = true);
+            saveTodayGachaState();
+            renderTodayGacha();
+        }
+
+        function resetTodayGacha() {
+            initTodayLunchGacha(true);
+        }
+
+        function renderTodayGacha(justRevealedIdx = -1) {
+            const grid = document.getElementById('gachaSlotGrid');
+            const remainEl = document.getElementById('gachaRemainCount');
+            const pullOneBtn = document.getElementById('pullOneBtn');
+            const pullAllBtn = document.getElementById('pullAllBtn');
+
+            if (todayGachaItems.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-4 bg-sky-50/50 rounded-xl border border-dashed border-sky-200 text-xs text-slate-400">오늘 점심 메뉴가 없습니다.</div>`;
+                remainEl.textContent = '0';
+                pullOneBtn.disabled = true;
+                pullAllBtn.disabled = true;
+                return;
+            }
+
+            const remainCount = todayGachaItems.filter(i => !i.revealed).length;
+            remainEl.textContent = remainCount;
+
+            if (remainCount === 0) {
+                pullOneBtn.disabled = true;
+                pullAllBtn.disabled = true;
+                pullOneBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                pullAllBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                pullOneBtn.disabled = false;
+                pullAllBtn.disabled = false;
+                pullOneBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                pullAllBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+
+            grid.innerHTML = todayGachaItems.map((item, idx) => {
+                const animClass = idx === justRevealedIdx ? 'animate-capsule' : '';
+                if (!item.revealed) {
+                    return `
+                        <button onclick="pullGachaSingleSlot(${idx})" 
+                            class="h-20 rounded-xl bg-gradient-to-br from-sky-100 to-sky-200/70 hover:from-sky-200 hover:to-blue-200 border border-sky-300/70 flex flex-col items-center justify-center gap-1 transition active:scale-95 cursor-pointer group">
+                            <span class="text-xl group-hover:scale-110 transition">🎁</span>
+                            <span class="text-[10px] font-bold text-sky-700">탭하여 뽑기</span>
+                        </button>
+                    `;
+                }
+                if (item.grade === 'SSR') {
+                    return `
+                        <div class="${animClass} ssr-card-glow h-20 rounded-xl bg-gradient-to-br from-amber-50 via-yellow-50 to-rose-50 border-2 border-amber-400 p-2 flex flex-col items-center justify-center text-center relative overflow-hidden">
+                            <span class="text-[10px] font-black tracking-wider bg-gradient-to-r from-amber-500 to-rose-500 text-white px-2 py-0.5 rounded-full mb-1 shadow-xs">👑 SSR</span>
+                            <span class="text-xs font-extrabold text-slate-800 leading-tight line-clamp-2">${item.name}</span>
+                        </div>
+                    `;
+                } else if (item.grade === 'SR') {
+                    return `
+                        <div class="${animClass} h-20 rounded-xl bg-gradient-to-br from-sky-50 to-indigo-50 border-2 border-sky-400 p-2 flex flex-col items-center justify-center text-center">
+                            <span class="text-[10px] font-extrabold tracking-wider bg-sky-500 text-white px-2 py-0.5 rounded-full mb-1">✨ SR</span>
+                            <span class="text-xs font-bold text-slate-700 leading-tight line-clamp-2">${item.name}</span>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="${animClass} h-20 rounded-xl bg-slate-50 border border-slate-200 p-2 flex flex-col items-center justify-center text-center">
+                            <span class="text-[10px] font-bold tracking-wider bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full mb-1">🍚 R</span>
+                            <span class="text-xs font-semibold text-slate-600 leading-tight line-clamp-2">${item.name}</span>
+                        </div>
+                    `;
+                }
+            }).join('');
+        }
+
+        // 맛도리 뱃지 뽑기 시스템
+        function getFoodBadgeMeta(menuName) {
+            if (menuName.includes('돈까스') || menuName.includes('치킨') || menuName.includes('갈비') || menuName.includes('스테이크') || menuName.includes('불고기') || menuName.includes('제육')) {
+                return { emoji: '🍖', tier: '전설 미식', border: 'border-amber-300 bg-amber-50/70' };
+            }
+            if (menuName.includes('스파게티') || menuName.includes('파스타') || menuName.includes('피자') || menuName.includes('새우') || menuName.includes('샌드위치')) {
+                return { emoji: '🍝', tier: '희귀 별미', border: 'border-sky-300 bg-sky-50/70' };
+            }
+            if (menuName.includes('찌개') || menuName.includes('탕') || menuName.includes('국') || menuName.includes('우동') || menuName.includes('스프')) {
+                return { emoji: '🍲', tier: '든든 한끼', border: 'border-teal-300 bg-teal-50/70' };
+            }
+            if (menuName.includes('쿠키') || menuName.includes('푸딩') || menuName.includes('주스') || menuName.includes('우유') || menuName.includes('식혜')) {
+                return { emoji: '🧁', tier: '달콤 디저트', border: 'border-pink-300 bg-pink-50/70' };
+            }
+            return { emoji: '🍱', tier: '근본 반찬', border: 'border-slate-200 bg-slate-50' };
+        }
+
+        async function initTodayDeliciousBadgePicker() {
+            const today = getFormattedDate(0);
+            let todayData = null;
+            if (selectedSchool) {
+                try { todayData = await fetchNeisMeals(today); } catch (e) { todayData = null; }
+            } else {
+                todayData = SAMPLE_MEAL_DATA[today];
+            }
+
+            const chipsContainer = document.getElementById('todayDeliciousMenuChips');
+            const allTodayMenus = [];
+            if (todayData?.breakfast) todayData.breakfast.menus.forEach(m => allTodayMenus.push({ name: m.name, mealLabel: '조식' }));
+            if (todayData?.lunch) todayData.lunch.menus.forEach(m => allTodayMenus.push({ name: m.name, mealLabel: '중식' }));
+            if (todayData?.dinner) todayData.dinner.menus.forEach(m => allTodayMenus.push({ name: m.name, mealLabel: '석식' }));
+
+            if (allTodayMenus.length === 0) {
+                chipsContainer.innerHTML = `<span class="text-xs text-slate-400 py-2">오늘 등록된 급식 메뉴가 없습니다.</span>`;
+            } else {
+                chipsContainer.innerHTML = allTodayMenus.map(item => {
+                    const isSelected = selectedBadgeMenu && selectedBadgeMenu.name === item.name && selectedBadgeMenu.mealLabel === item.mealLabel;
+                    return `
+                        <button onclick="selectMenuForBadge('${item.name.replace(/'/g, "\\'")}', '${item.mealLabel}')"
+                            class="text-xs px-2.5 py-1.5 rounded-lg border font-semibold transition cursor-pointer flex items-center gap-1 ${
+                                isSelected ? 'bg-sky-500 text-white border-sky-500 shadow-xs' : 'bg-white text-slate-600 border-sky-100 hover:bg-sky-50'
+                            }">
+                            <span class="text-[10px] opacity-75">[${item.mealLabel}]</span>
+                            <span>${item.name}</span>
+                        </button>
+                    `;
+                }).join('');
+            }
+            renderCollectedBadges();
+        }
+
+        function selectMenuForBadge(menuName, mealLabel) {
+            selectedBadgeMenu = { name: menuName, mealLabel };
+            document.getElementById('selectedBadgeMenuLabel').textContent = `[${mealLabel}] ${menuName}`;
+            const btn = document.getElementById('craftMenuBadgeBtn');
+            btn.disabled = false;
+            btn.className = "w-full py-2.5 px-4 rounded-xl font-bold text-xs transition flex items-center justify-center gap-1.5 bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 active:scale-95 text-white shadow-sm cursor-pointer";
+            btn.innerHTML = `<i data-lucide="award" class="w-4 h-4 text-amber-200"></i><span>'${menuName}' 맛도리 뱃지 뽑기!</span>`;
+            initTodayDeliciousBadgePicker();
             lucide.createIcons();
         }
 
-        function closeSchoolModal() {
-            document.getElementById('schoolModal').classList.add('hidden');
+        function craftSelectedMenuBadge() {
+            if (!selectedBadgeMenu) return;
+            const { name, mealLabel } = selectedBadgeMenu;
+            const meta = getFoodBadgeMeta(name);
+            const today = getFormattedDate(0);
+
+            const existing = collectedBadges.find(b => b.name === name);
+            let level = 1;
+            if (existing) {
+                existing.level += 1;
+                existing.lastDate = today;
+                level = existing.level;
+            } else {
+                collectedBadges.unshift({ name, mealLabel, emoji: meta.emoji, tier: meta.tier, level: 1, lastDate: today });
+            }
+
+            localStorage.setItem('collectedMealBadges', JSON.stringify(collectedBadges));
+
+            const highlightBox = document.getElementById('newlyCraftedBadgeBox');
+            highlightBox.classList.remove('hidden');
+            highlightBox.innerHTML = `
+                <div class="flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-11 h-11 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-2xl shrink-0">${meta.emoji}</div>
+                        <div>
+                            <div class="text-[10px] font-bold text-sky-100 uppercase tracking-wider">🎉 ${meta.tier} 뱃지 획득! (Lv.${level})</div>
+                            <div class="font-extrabold text-sm">${name} 마스터</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            renderCollectedBadges();
+            lucide.createIcons();
         }
 
-        function selectSampleSchool() {
-            currentSchoolCode = "J10";
-            currentSchoolCodeNo = "7530104";
-            currentSchoolNameText = "한빛고등학교 (샘플)";
-            document.getElementById('currentSchoolName').innerText = currentSchoolNameText;
-            closeSchoolModal();
-            loadMealData();
-        }
+        function renderCollectedBadges() {
+            const grid = document.getElementById('collectedBadgesGrid');
+            document.getElementById('badgeTotalCount').textContent = `보유 ${collectedBadges.length}개`;
 
-        async function searchSchools() {
-            const keyword = document.getElementById('schoolSearchInput').value.trim();
-            const resultsDiv = document.getElementById('schoolSearchResults');
-            
-            if (!keyword) {
-                resultsDiv.innerHTML = '<div class="text-center py-4 text-xs text-rose-500">검색어를 입력해주세요.</div>';
+            if (collectedBadges.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-5 bg-slate-50 rounded-xl border border-dashed border-slate-200 text-[11px] text-slate-400">아직 수집한 뱃지가 없습니다.</div>`;
                 return;
             }
 
-            resultsDiv.innerHTML = '<div class="text-center py-6 text-xs text-slate-400">검색 중...</div>';
-
-            try {
-                const url = `https://open.neis.go.kr/hub/schoolInfo?KEY=${neisApiKey}&Type=json&SCHUL_NM=${encodeURI(keyword)}`;
-                const res = await fetch(url);
-                const json = await res.json();
-
-                if (json.schoolInfo) {
-                    const rows = json.schoolInfo[1].row;
-                    resultsDiv.innerHTML = '';
-                    
-                    rows.forEach(r => {
-                        const btn = document.createElement('button');
-                        btn.className = "w-full text-left p-3 rounded-xl bg-sky-50 hover:bg-sky-100 transition flex items-center justify-between cursor-pointer";
-                        btn.innerHTML = `
-                            <div>
-                                <div class="font-bold text-sm text-slate-800">${r.SCHUL_NM}</div>
-                                <div class="text-[11px] text-slate-500">${r.ORG_RDNMA || r.JHS_SC_NM || ''}</div>
-                            </div>
-                            <span class="text-xs bg-sky-500 text-white font-bold px-2.5 py-1 rounded-lg">선택</span>
-                        `;
-                        btn.onclick = () => {
-                            currentSchoolCode = r.ATPT_OFCDC_SC_CODE;
-                            currentSchoolCodeNo = r.SD_SCHUL_CODE;
-                            currentSchoolNameText = r.SCHUL_NM;
-                            document.getElementById('currentSchoolName').innerText = currentSchoolNameText;
-                            closeSchoolModal();
-                            loadMealData();
-                        };
-                        resultsDiv.appendChild(btn);
-                    });
-                } else {
-                    resultsDiv.innerHTML = '<div class="text-center py-6 text-xs text-slate-400">검색 결과가 없습니다. 정확한 학교명을 입력해 보세요.</div>';
-                }
-            } catch (e) {
-                resultsDiv.innerHTML = '<div class="text-center py-6 text-xs text-rose-500">API 조회 중 오류가 발생했습니다.</div>';
-            }
+            grid.innerHTML = collectedBadges.map(badge => {
+                const meta = getFoodBadgeMeta(badge.name);
+                return `
+                    <div class="rounded-xl p-2.5 border ${meta.border} flex flex-col items-center text-center relative">
+                        <span class="absolute top-1.5 right-1.5 text-[9px] font-extrabold bg-white/90 text-slate-700 px-1.5 py-0.2 rounded-full border border-slate-200">Lv.${badge.level}</span>
+                        <span class="text-2xl my-1">${badge.emoji}</span>
+                        <span class="text-[9px] font-bold text-slate-500">${badge.tier}</span>
+                        <span class="text-[11px] font-extrabold text-slate-800 line-clamp-1 mt-0.5">${badge.name}</span>
+                    </div>
+                `;
+            }).join('');
         }
 
         function openBadgeShowcaseModal() {
-            document.getElementById('badgeShowcaseModal').classList.remove('hidden');
-            renderBadgeShowcase();
+            const modal = document.getElementById('badgeShowcaseModal');
+            const grid = document.getElementById('showcaseBadgesGrid');
+            document.getElementById('showcaseTotalCount').textContent = `${collectedBadges.length}개`;
+            document.getElementById('showcaseTopLevel').textContent = `Lv.${collectedBadges.length > 0 ? Math.max(...collectedBadges.map(b => b.level)) : 1}`;
+
+            if (collectedBadges.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-10 bg-slate-50 rounded-2xl border border-dashed border-slate-200 text-xs text-slate-400">진열된 뱃지가 없습니다.</div>`;
+            } else {
+                grid.innerHTML = collectedBadges.map(badge => {
+                    const meta = getFoodBadgeMeta(badge.name);
+                    return `
+                        <div class="rounded-2xl p-3 border ${meta.border} flex items-center gap-3 relative shadow-2xs">
+                            <span class="absolute top-2 right-2 text-[10px] font-black bg-white/90 text-slate-700 px-2 py-0.5 rounded-full border border-slate-200">Lv.${badge.level}</span>
+                            <div class="w-12 h-12 rounded-xl bg-white/80 border flex items-center justify-center text-2xl shrink-0 shadow-xs">${badge.emoji}</div>
+                            <div class="min-w-0 pr-4">
+                                <span class="text-[10px] font-bold text-slate-500 block">${badge.tier}</span>
+                                <span class="text-xs font-extrabold text-slate-800 block truncate mt-0.5">${badge.name}</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            modal.classList.remove('hidden');
             lucide.createIcons();
         }
 
@@ -748,261 +779,397 @@
             document.getElementById('badgeShowcaseModal').classList.add('hidden');
         }
 
-        function renderBadgeShowcase() {
-            const grid = document.getElementById('showcaseBadgesGrid');
-            grid.innerHTML = '';
+        function clearCollectedBadges() {
+            collectedBadges = [];
+            localStorage.removeItem('collectedMealBadges');
+            document.getElementById('newlyCraftedBadgeBox').classList.add('hidden');
+            renderCollectedBadges();
+        }
 
-            const allBadges = Object.values(collectedBadges);
-            document.getElementById('showcaseTotalCount').innerText = `${allBadges.length}개`;
+        // 학교 검색 및 API 연동
+        async function searchSchools() {
+            const query = schoolSearchInput.value.trim();
+            if (!query) return;
+            schoolSearchResults.innerHTML = `<div class="text-center py-6 text-xs text-sky-500 font-semibold">학교 검색 중...</div>`;
+            try {
+                const url = `https://open.neis.go.kr/hub/schoolInfo?KEY=${neisApiKey}&Type=json&pIndex=1&pSize=10&SCHUL_NM=${encodeURIComponent(query)}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                const schoolRows = data.schoolInfo?.[1]?.row || [];
+                if (schoolRows.length === 0) {
+                    schoolSearchResults.innerHTML = `<div class="text-center py-6 text-xs text-slate-400">검색된 학교가 없습니다.</div>`;
+                    return;
+                }
+                schoolSearchResults.innerHTML = schoolRows.map(school => `
+                    <div onclick="selectSchool('${school.SD_SCHUL_CODE}', '${school.SCHUL_NM}', '${school.ATPT_OFCDC_SC_CODE}')"
+                        class="p-3 rounded-xl bg-sky-50/50 hover:bg-sky-100 border border-sky-100 flex items-center justify-between cursor-pointer transition">
+                        <div>
+                            <div class="font-bold text-sm text-slate-800">${school.SCHUL_NM}</div>
+                            <div class="text-[11px] text-slate-400">${school.ORG_RDNMA || ''}</div>
+                        </div>
+                        <span class="text-xs font-bold bg-sky-500 text-white px-2.5 py-1 rounded-lg">선택</span>
+                    </div>
+                `).join('');
+            } catch (error) {
+                schoolSearchResults.innerHTML = `<div class="text-center py-6 text-xs text-rose-500">학교 검색 중 오류가 발생했습니다.</div>`;
+            }
+        }
 
-            let maxLv = 1;
-            allBadges.forEach(b => {
-                if (b.level > maxLv) maxLv = b.level;
-            });
-            document.getElementById('showcaseTopLevel').innerText = `Lv.${maxLv}`;
+        function selectSchool(code, name, officeCode) {
+            selectedSchool = { code, name, officeCode };
+            localStorage.setItem('selectedSchool', JSON.stringify(selectedSchool));
+            currentSchoolNameEl.textContent = name;
+            closeSchoolModal();
+            loadMealData(currentSelectedDate);
+            initTodayLunchGacha();
+            initTodayDeliciousBadgePicker();
+        }
 
-            if (allBadges.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-2 text-center py-10 text-xs text-slate-400">
-                        수집한 맛도리 뱃지가 없습니다!<br>메인 하단의 '맛도리 메뉴 뱃지 뽑기'를 진행해보세요.
+        function selectSampleSchool() {
+            selectedSchool = null;
+            localStorage.removeItem('selectedSchool');
+            currentSchoolNameEl.textContent = '한빛고등학교 (샘플)';
+            closeSchoolModal();
+            loadMealData(currentSelectedDate);
+            initTodayLunchGacha();
+            initTodayDeliciousBadgePicker();
+        }
+
+        function openSchoolModal() { schoolModal.classList.remove('hidden'); schoolSearchInput.focus(); }
+        function closeSchoolModal() { schoolModal.classList.add('hidden'); }
+
+        async function fetchNeisMeals(dateString) {
+            const cacheKey = `${selectedSchool.code}_${dateString}`;
+            if (mealApiCache[cacheKey]) return mealApiCache[cacheKey];
+            const mlYmd = dateString.replace(/-/g, '');
+            const url = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${neisApiKey}&Type=json&ATPT_OFCDC_SC_CODE=${selectedSchool.officeCode}&SD_SCHUL_CODE=${selectedSchool.code}&MLSV_YMD=${mlYmd}`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                if (data.RESULT && data.RESULT.CODE === 'INFO-200') return null;
+                const rows = data.mealServiceDietInfo?.[1]?.row || [];
+                const dayResult = { breakfast: null, lunch: null, dinner: null };
+                rows.forEach(row => {
+                    const mealCode = row.MMEAL_SC_CODE;
+                    const cleanMenuStr = row.DDISH_NM.replace(/<br\/?>/g, '\n').replace(/\([0-9\.]+\)/g, '').trim();
+                    const menuLines = cleanMenuStr.split('\n').map(m => ({ name: m.trim() })).filter(m => m.name);
+                    const mealObj = { kcal: row.CAL_INFO || '정보 없음', menus: menuLines };
+                    if (mealCode === '1') dayResult.breakfast = mealObj;
+                    else if (mealCode === '2') dayResult.lunch = mealObj;
+                    else if (mealCode === '3') dayResult.dinner = mealObj;
+                });
+                mealApiCache[cacheKey] = dayResult;
+                return dayResult;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        // 즐겨찾기 및 D-Day 설정
+        function addFavoriteMenu() {
+            const input = document.getElementById('favMenuInput');
+            const val = input.value.trim();
+            if (!val) return;
+            if (!favoriteMenus.includes(val)) {
+                favoriteMenus.push(val);
+                localStorage.setItem('favoriteMenus', JSON.stringify(favoriteMenus));
+                input.value = '';
+                updateFavoriteTabUI();
+                scanUpcomingMealsForFavorites();
+                initTodayLunchGacha();
+            }
+        }
+
+        function removeFavoriteMenu(menuName) {
+            favoriteMenus = favoriteMenus.filter(m => m !== menuName);
+            localStorage.setItem('favoriteMenus', JSON.stringify(favoriteMenus));
+            updateFavoriteTabUI();
+            scanUpcomingMealsForFavorites();
+            initTodayLunchGacha();
+        }
+
+        function toggleBoldFavorite(isChecked) {
+            boldFavoriteEnabled = isChecked;
+            localStorage.setItem('boldFavoriteEnabled', JSON.stringify(isChecked));
+            loadMealData(currentSelectedDate);
+        }
+
+        function addDislikedMenu() {
+            const input = document.getElementById('dislikedMenuInput');
+            const val = input.value.trim();
+            if (!val) return;
+            if (!dislikedMenus.includes(val)) {
+                dislikedMenus.push(val);
+                localStorage.setItem('dislikedMenus', JSON.stringify(dislikedMenus));
+                input.value = '';
+                updateFavoriteTabUI();
+                loadMealData(currentSelectedDate);
+            }
+        }
+
+        function removeDislikedMenu(menuName) {
+            dislikedMenus = dislikedMenus.filter(m => m !== menuName);
+            localStorage.setItem('dislikedMenus', JSON.stringify(dislikedMenus));
+            updateFavoriteTabUI();
+            loadMealData(currentSelectedDate);
+        }
+
+        function updateFavoriteTabUI() {
+            favCountBadge.textContent = favoriteMenus.length;
+            boldFavToggle.checked = boldFavoriteEnabled;
+
+            const favListEl = document.getElementById('favoriteDdayList');
+            if (favoriteMenus.length === 0) {
+                favListEl.innerHTML = `<div class="text-xs text-slate-400 py-3 text-center bg-white rounded-xl border border-sky-100">등록된 즐겨찾기 메뉴가 없습니다.</div>`;
+            } else {
+                favListEl.innerHTML = favoriteMenus.map(fav => {
+                    const matchInfo = favoriteMatchesCache[fav];
+                    let ddayBadge = `<span class="text-[10px] bg-slate-100 text-slate-400 px-2 py-0.5 rounded-full font-bold">일정 없음</span>`;
+                    if (matchInfo && matchInfo.length > 0) {
+                        const nearest = matchInfo[0];
+                        let badgeColor = 'bg-emerald-100 text-emerald-700';
+                        if (nearest.dday === 0) badgeColor = 'bg-rose-500 text-white animate-pulse';
+                        else if (nearest.dday <= 2) badgeColor = 'bg-amber-100 text-amber-700';
+                        ddayBadge = `<span class="text-[10px] ${badgeColor} px-2 py-0.5 rounded-full font-black cursor-pointer hover:underline" onclick="jumpToDate('${nearest.date}', '${nearest.mealType}')">${nearest.dday === 0 ? 'D-Day (오늘)' : `D-${nearest.dday} (${nearest.date})`}</span>`;
+                    }
+                    return `
+                        <div class="flex items-center justify-between bg-white p-3 rounded-xl border border-sky-100 shadow-2xs">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-400 shrink-0"></i>
+                                <span class="text-xs font-bold text-slate-800">${fav}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                ${ddayBadge}
+                                <button onclick="removeFavoriteMenu('${fav}')" class="text-slate-300 hover:text-rose-500 transition cursor-pointer"><i data-lucide="x" class="w-4 h-4"></i></button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            const dislikedEl = document.getElementById('dislikedMenuTags');
+            if (dislikedMenus.length === 0) {
+                dislikedEl.innerHTML = `<span class="text-xs text-slate-400">등록된 기피 메뉴가 없습니다.</span>`;
+            } else {
+                dislikedEl.innerHTML = dislikedMenus.map(d => `
+                    <span class="inline-flex items-center gap-1.5 bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold px-2.5 py-1 rounded-xl">
+                        <span>${d}</span>
+                        <button onclick="removeDislikedMenu('${d}')" class="hover:text-rose-950 cursor-pointer"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
+                    </span>
+                `).join('');
+            }
+            lucide.createIcons();
+        }
+
+        async function scanUpcomingMealsForFavorites() {
+            favoriteMatchesCache = {};
+            const todayStr = getFormattedDate(0);
+            const todayDateObj = new Date(todayStr);
+            for (let i = 0; i < 14; i++) {
+                const targetDateObj = new Date(todayDateObj);
+                targetDateObj.setDate(targetDateObj.getDate() + i);
+                const dateStr = targetDateObj.toISOString().split('T')[0];
+                let dayData = selectedSchool ? await fetchNeisMeals(dateStr) : SAMPLE_MEAL_DATA[dateStr];
+                if (!dayData) continue;
+                ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
+                    const mealObj = dayData[mealType];
+                    if (!mealObj || !mealObj.menus) return;
+                    mealObj.menus.forEach(menu => {
+                        favoriteMenus.forEach(fav => {
+                            if (menu.name.includes(fav)) {
+                                if (!favoriteMatchesCache[fav]) favoriteMatchesCache[fav] = [];
+                                if (!favoriteMatchesCache[fav].some(m => m.date === dateStr)) {
+                                    favoriteMatchesCache[fav].push({ date: dateStr, mealType, dday: i });
+                                }
+                            }
+                        });
+                    });
+                });
+            }
+            updateFavoriteTabUI();
+        }
+
+        function jumpToDate(dateStr, mealType) {
+            currentSelectedDate = dateStr;
+            datePicker.value = dateStr;
+            currentTimeTab = (mealType === 'dinner') ? 'afternoon' : 'morning';
+            updateTimeTabUI();
+            switchMainView('meals');
+            loadMealData(dateStr);
+        }
+
+        function switchMainView(view) {
+            currentMainView = view;
+            if (view === 'meals') {
+                navMealBtn.className = "py-3 text-sm font-bold text-sky-600 border-b-2 border-sky-500 bg-white flex items-center justify-center gap-1.5 transition cursor-pointer";
+                navPrefBtn.className = "py-3 text-sm font-bold text-slate-500 border-b-2 border-transparent hover:text-sky-600 flex items-center justify-center gap-1.5 transition cursor-pointer";
+                mealViewContainer.classList.remove('hidden');
+                prefViewContainer.classList.add('hidden');
+            } else {
+                navPrefBtn.className = "py-3 text-sm font-bold text-sky-600 border-b-2 border-sky-500 bg-white flex items-center justify-center gap-1.5 transition cursor-pointer";
+                navMealBtn.className = "py-3 text-sm font-bold text-slate-500 border-b-2 border-transparent hover:text-sky-600 flex items-center justify-center gap-1.5 transition cursor-pointer";
+                prefViewContainer.classList.remove('hidden');
+                mealViewContainer.classList.add('hidden');
+                scanUpcomingMealsForFavorites();
+            }
+        }
+
+        function switchTimeTab(tab) {
+            currentTimeTab = tab;
+            updateTimeTabUI();
+            loadMealData(currentSelectedDate);
+        }
+
+        function updateTimeTabUI() {
+            if (currentTimeTab === 'morning') {
+                tabMorning.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-bold text-sm transition-all shadow-sm bg-white text-sky-600 cursor-pointer";
+                tabAfternoon.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-bold text-sm transition-all text-slate-500 hover:text-sky-600 cursor-pointer";
+            } else {
+                tabAfternoon.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-bold text-sm transition-all shadow-sm bg-white text-sky-600 cursor-pointer";
+                tabMorning.className = "flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-bold text-sm transition-all text-slate-500 hover:text-sky-600 cursor-pointer";
+            }
+        }
+
+        function renderQuickDateChips() {
+            const chips = [];
+            for (let i = -1; i <= 3; i++) {
+                const dStr = getFormattedDate(i);
+                const dayOfWeek = getDayOfWeekKor(dStr);
+                const parts = dStr.split('-');
+                chips.push({ dStr, label: `${parts[1]}/${parts[2]} (${dayOfWeek})`, isToday: i === 0 });
+            }
+            quickDateChips.innerHTML = chips.map(c => `
+                <button onclick="selectDate('${c.dStr}')" 
+                    class="px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+                        currentSelectedDate === c.dStr ? 'bg-sky-500 text-white shadow-xs' : 'bg-sky-50/70 text-slate-600 hover:bg-sky-100 border border-sky-100'
+                    }">
+                    ${c.isToday ? '오늘' : c.label}
+                </button>
+            `).join('');
+        }
+
+        function selectDate(dateStr) {
+            currentSelectedDate = dateStr;
+            datePicker.value = dateStr;
+            renderQuickDateChips();
+            loadMealData(dateStr);
+        }
+
+        async function loadMealData(dateStr) {
+            mealContent.innerHTML = `<div class="text-center py-12 text-slate-400 text-sm">급식 정보를 불러오는 중입니다...</div>`;
+            let dayData = selectedSchool ? await fetchNeisMeals(dateStr) : SAMPLE_MEAL_DATA[dateStr];
+
+            if (!dayData) {
+                mealContent.innerHTML = `
+                    <div class="text-center py-16 space-y-2">
+                        <span class="text-3xl">🍽️</span>
+                        <div class="font-bold text-slate-700 text-sm">해당 날짜에는 등록된 급식 정보가 없습니다.</div>
                     </div>
                 `;
                 return;
             }
 
-            allBadges.forEach(badge => {
-                const card = document.createElement('div');
-                const isSSR = badge.grade === 'SSR';
-                card.className = `p-3 rounded-2xl border flex flex-col items-center text-center ${isSSR ? 'bg-gradient-to-b from-amber-50 to-pink-50 border-amber-300 ssr-card-glow' : 'bg-sky-50/50 border-sky-200'}`;
-                
-                card.innerHTML = `
-                    <div class="text-2xl mb-1">${badge.icon}</div>
-                    <div class="font-black text-xs text-slate-800">${badge.menuName}</div>
-                    <div class="text-[10px] font-bold mt-1 px-2 py-0.5 rounded-full ${isSSR ? 'bg-amber-100 text-amber-700' : 'bg-sky-100 text-sky-700'}">
-                        ${badge.grade} · Lv.${badge.level || 1}
+            if (currentTimeTab === 'morning') {
+                mealContent.innerHTML = renderSingleMealBox('☀️ 조식', dayData.breakfast) + renderSingleMealBox('🌞 중식', dayData.lunch);
+            } else {
+                mealContent.innerHTML = renderSingleMealBox('🌙 석식', dayData.dinner);
+            }
+            lucide.createIcons();
+        }
+
+        function renderSingleMealBox(title, mealObj) {
+            if (!mealObj || !mealObj.menus || mealObj.menus.length === 0) {
+                return `
+                    <div class="bg-sky-50/40 rounded-2xl p-4 border border-sky-100 space-y-2">
+                        <div class="flex items-center justify-between font-bold text-slate-700 text-sm">
+                            <span>${title}</span>
+                            <span class="text-xs font-normal text-slate-400">제공 메뉴 없음</span>
+                        </div>
+                        <p class="text-xs text-slate-400 py-2 text-center">등록된 식단이 없습니다.</p>
                     </div>
                 `;
-                grid.appendChild(card);
-            });
-        }
-
-        function initGachaForToday() {
-            const menuList = sampleDatabase[selectedDateStr] ? sampleDatabase[selectedDateStr].lunch : ["돈까스", "제육볶음", "치킨"];
-            if (!todayGachaState) {
-                todayGachaState = {
-                    slots: menuList.map((m, idx) => ({ id: idx, menu: m, opened: false, badge: null }))
-                };
-                localStorage.setItem('school_meal_gacha_' + selectedDateStr, JSON.stringify(todayGachaState));
             }
-            renderGachaSlots();
-        }
 
-        function renderGachaSlots() {
-            const grid = document.getElementById('gachaSlotGrid');
-            grid.innerHTML = '';
+            const menuItemsHtml = mealObj.menus.map(menu => {
+                const name = menu.name;
+                const isFav = favoriteMenus.some(fav => name.includes(fav));
+                const isDisliked = dislikedMenus.some(dis => name.includes(dis));
 
-            let remain = 0;
-            todayGachaState.slots.forEach(slot => {
-                if (!slot.opened) remain++;
+                let nameStyleClass = 'text-slate-700 font-medium';
+                let extraBadge = '';
 
-                const card = document.createElement('div');
-                card.className = `p-3 rounded-2xl border flex flex-col items-center justify-center transition cursor-pointer ${slot.opened ? 'bg-white border-sky-200 shadow-xs' : 'bg-gradient-to-br from-sky-500 to-blue-500 text-white border-sky-400 hover:scale-[1.02]'}`;
-                
-                if (slot.opened) {
-                    card.innerHTML = `
-                        <div class="text-xl mb-1">${slot.badge.icon}</div>
-                        <div class="font-bold text-xs text-slate-800 text-center truncate w-full">${slot.menu}</div>
-                        <div class="text-[9px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded mt-1">${slot.badge.grade}</div>
-                    `;
-                } else {
-                    card.innerHTML = `
-                        <div class="text-xl mb-1">🎁</div>
-                        <div class="font-extrabold text-xs">뽑기 상자</div>
-                        <div class="text-[9px] text-sky-100 mt-1">터치해서 오픈</div>
-                    `;
-                    card.onclick = () => openSingleSlot(slot.id);
+                if (isDisliked) {
+                    nameStyleClass = 'text-slate-400 line-through decoration-rose-500 decoration-2';
+                    extraBadge = `<span class="text-[9px] bg-rose-50 text-rose-600 px-1.5 py-0.5 rounded-md font-bold">기피</span>`;
+                } else if (isFav && boldFavoriteEnabled) {
+                    nameStyleClass = 'text-sky-900 font-extrabold underline decoration-sky-500 decoration-2';
+                    extraBadge = `<span class="text-[9px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-md font-bold">⭐ 즐겨찾기</span>`;
                 }
-                grid.appendChild(card);
-            });
 
-            document.getElementById('gachaRemainCount').innerText = remain;
-        }
+                return `
+                    <div onclick="toggleFavoriteInline('${name.replace(/'/g, "\\'")}')" 
+                        class="group flex items-center justify-between p-2 rounded-xl hover:bg-sky-50/80 transition cursor-pointer select-none">
+                        <div class="flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-sky-400 group-hover:scale-125 transition"></span>
+                            <span class="text-xs ${nameStyleClass}">${name}</span>
+                            ${extraBadge}
+                        </div>
+                        <i data-lucide="star" class="w-3.5 h-3.5 ${isFav ? 'text-amber-500 fill-amber-400' : 'text-slate-200 group-hover:text-sky-300'} transition"></i>
+                    </div>
+                `;
+            }).join('');
 
-        function openSingleSlot(id) {
-            const slot = todayGachaState.slots.find(s => s.id === id);
-            if (!slot || slot.opened) return;
-
-            const grades = ['R', 'R', 'R', 'SR', 'SR', 'SSR'];
-            const chosenGrade = grades[Math.floor(Math.random() * grades.length)];
-            const icons = chosenGrade === 'SSR' ? ['👑', '🌟', '🔥'] : chosenGrade === 'SR' ? ['🍔', '🍗', '🍕'] : ['🥗', '🥣', '🥢'];
-            const chosenIcon = icons[Math.floor(Math.random() * icons.length)];
-
-            slot.opened = true;
-            slot.badge = { menuName: slot.menu, grade: chosenGrade, icon: chosenIcon, level: 1 };
-
-            collectedBadges[slot.menu] = slot.badge;
-            localStorage.setItem('school_meal_badges', JSON.stringify(collectedBadges));
-            localStorage.setItem('school_meal_gacha_' + selectedDateStr, JSON.stringify(todayGachaState));
-
-            renderGachaSlots();
-        }
-
-        function pullGachaOne() {
-            const closedSlot = todayGachaState.slots.find(s => !s.opened);
-            if (!closedSlot) {
-                alert("오늘의 모든 가챠 상자를 이미 오픈하셨습니다!");
-                return;
-            }
-            openSingleSlot(closedSlot.id);
-        }
-
-        function pullGachaAll() {
-            todayGachaState.slots.forEach(slot => {
-                if (!slot.opened) {
-                    const grades = ['R', 'SR', 'SSR'];
-                    const chosenGrade = grades[Math.floor(Math.random() * grades.length)];
-                    slot.opened = true;
-                    slot.badge = { menuName: slot.menu, grade: chosenGrade, icon: '⭐', level: 1 };
-                    collectedBadges[slot.menu] = slot.badge;
-                }
-            });
-            localStorage.setItem('school_meal_badges', JSON.stringify(collectedBadges));
-            localStorage.setItem('school_meal_gacha_' + selectedDateStr, JSON.stringify(todayGachaState));
-            renderGachaSlots();
-        }
-
-        function resetTodayGacha() {
-            localStorage.removeItem('school_meal_gacha_' + selectedDateStr);
-            todayGachaState = null;
-            initGachaForToday();
-        }
-
-        function renderDeliciousMenuSelector(menuArray) {
-            const container = document.getElementById('deliciousMenuSelector');
-            container.innerHTML = '';
-
-            if (!menuArray || menuArray.length === 0) return;
-
-            menuArray.forEach(m => {
-                const btn = document.createElement('button');
-                btn.className = "px-3 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 font-bold text-xs transition cursor-pointer flex items-center gap-1";
-                btn.innerHTML = `<span>✨</span><span>${m}</span>`;
-                btn.onclick = () => drawBadgeForMenu(m);
-                container.appendChild(btn);
-            });
-        }
-
-        function drawBadgeForMenu(menuName) {
-            const grades = ['R', 'SR', 'SSR'];
-            const chosenGrade = grades[Math.floor(Math.random() * grades.length)];
-            const icons = chosenGrade === 'SSR' ? ['👑', '💎', '🔥'] : chosenGrade === 'SR' ? ['🍔', '🍗', '🍕'] : ['🍱', '🍲', '🥢'];
-            const chosenIcon = icons[Math.floor(Math.random() * icons.length)];
-
-            const badge = { menuName, grade: chosenGrade, icon: chosenIcon, level: (collectedBadges[menuName] ? (collectedBadges[menuName].level || 1) + 1 : 1) };
-            collectedBadges[menuName] = badge;
-            localStorage.setItem('school_meal_badges', JSON.stringify(collectedBadges));
-
-            const container = document.getElementById('badgeDrawResultContainer');
-            container.classList.remove('hidden');
-            container.innerHTML = `
-                <div class="text-2xl mb-1 animate-capsule">${chosenIcon}</div>
-                <div class="font-extrabold text-sm text-slate-800">[${menuName}] 뱃지 획득!</div>
-                <div class="text-xs font-bold text-amber-600 mt-0.5">등급: ${chosenGrade} (마스터 Lv.${badge.level})</div>
+            return `
+                <div class="bg-sky-50/40 rounded-2xl p-4 border border-sky-100/80 shadow-2xs space-y-3">
+                    <div class="flex items-center justify-between border-b border-sky-100 pb-2">
+                        <span class="font-extrabold text-slate-800 text-sm">${title}</span>
+                        <span class="text-xs font-bold bg-white text-sky-600 border border-sky-200 px-2 py-0.5 rounded-full shadow-2xs">🔥 ${mealObj.kcal}</span>
+                    </div>
+                    <div class="space-y-1">${menuItemsHtml}</div>
+                </div>
             `;
         }
 
-        function addFavoriteKeyword() {
-            const input = document.getElementById('newFavInput');
-            const val = input.value.trim();
-            if (!val) return;
-            if (!favorites.includes(val)) {
-                favorites.push(val);
-                localStorage.setItem('school_meal_favs', JSON.stringify(favorites));
-                input.value = '';
-                renderFavoritesAndDDay();
-                loadMealData();
-            }
+        function toggleFavoriteInline(menuName) {
+            const coreKeyword = menuName.split(' ')[0].replace(/[^가-힣a-zA-Z]/g, '');
+            if (!coreKeyword) return;
+            const idx = favoriteMenus.findIndex(fav => menuName.includes(fav));
+            if (idx !== -1) favoriteMenus.splice(idx, 1);
+            else favoriteMenus.push(coreKeyword);
+
+            localStorage.setItem('favoriteMenus', JSON.stringify(favoriteMenus));
+            updateFavoriteTabUI();
+            loadMealData(currentSelectedDate);
+            initTodayLunchGacha();
         }
 
-        function removeFavorite(val) {
-            favorites = favorites.filter(f => f !== val);
-            localStorage.setItem('school_meal_favs', JSON.stringify(favorites));
-            renderFavoritesAndDDay();
-            loadMealData();
-        }
+        window.addEventListener('DOMContentLoaded', () => {
+            currentSelectedDate = getFormattedDate(0);
+            datePicker.value = currentSelectedDate;
 
-        function toggleBoldHighlight(checkbox) {
-            isBoldHighlightOn = checkbox.checked;
-            localStorage.setItem('school_meal_bold', JSON.stringify(isBoldHighlightOn));
-            loadMealData();
-        }
+            if (selectedSchool) currentSchoolNameEl.textContent = selectedSchool.name;
 
-        function renderFavoritesAndDDay() {
-            const container = document.getElementById('favoritesDDayList');
-            document.getElementById('favCountBadge').innerText = favorites.length;
-            container.innerHTML = '';
+            renderQuickDateChips();
+            updateTimeTabUI();
+            updateFavoriteTabUI();
+            loadMealData(currentSelectedDate);
+            initTodayLunchGacha();
+            initTodayDeliciousBadgePicker();
 
-            if (favorites.length === 0) {
-                container.innerHTML = '<div class="text-xs text-slate-400 py-3 text-center">등록된 즐겨찾기 메뉴가 없습니다.</div>';
-                return;
-            }
-
-            favorites.forEach(fav => {
-                const item = document.createElement('div');
-                item.className = "flex items-center justify-between p-3 rounded-xl bg-sky-50/60 border border-sky-100";
-                item.innerHTML = `
-                    <div class="flex items-center gap-2">
-                        <span class="text-amber-500">⭐</span>
-                        <span class="font-bold text-sm text-slate-800">${fav}</span>
-                    </div>
-                    <button onclick="removeFavorite('${fav}')" class="text-xs text-rose-500 hover:text-rose-600 font-semibold px-2 py-1 rounded-lg hover:bg-rose-50 transition cursor-pointer">
-                        삭제
-                    </button>
-                `;
-                container.appendChild(item);
+            datePicker.addEventListener('change', (e) => selectDate(e.target.value));
+            prevDateBtn.addEventListener('click', () => {
+                const d = new Date(currentSelectedDate);
+                d.setDate(d.getDate() - 1);
+                selectDate(d.toISOString().split('T')[0]);
             });
-        }
-
-        function addDislikeKeyword() {
-            const input = document.getElementById('newDislikeInput');
-            const val = input.value.trim();
-            if (!val) return;
-            if (!dislikes.includes(val)) {
-                dislikes.push(val);
-                localStorage.setItem('school_meal_dislikes', JSON.stringify(dislikes));
-                input.value = '';
-                renderDislikes();
-                loadMealData();
-            }
-        }
-
-        function removeDislike(val) {
-            dislikes = dislikes.filter(d => d !== val);
-            localStorage.setItem('school_meal_dislikes', JSON.stringify(dislikes));
-            renderDislikes();
-            loadMealData();
-        }
-
-        function renderDislikes() {
-            const container = document.getElementById('dislikeChipsList');
-            container.innerHTML = '';
-
-            if (dislikes.length === 0) {
-                container.innerHTML = '<div class="text-xs text-slate-400 py-2">등록된 기피 메뉴가 없습니다.</div>';
-                return;
-            }
-
-            dislikes.forEach(dis => {
-                const chip = document.createElement('div');
-                chip.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 font-bold text-xs";
-                chip.innerHTML = `
-                    <span>🚫</span>
-                    <span>${dis}</span>
-                    <button onclick="removeDislike('${dis}')" class="ml-1 hover:text-rose-800 cursor-pointer">×</button>
-                `;
-                container.appendChild(chip);
+            nextDateBtn.addEventListener('click', () => {
+                const d = new Date(currentSelectedDate);
+                d.setDate(d.getDate() + 1);
+                selectDate(d.toISOString().split('T')[0]);
             });
-        }
+            todayBtn.addEventListener('click', () => selectDate(getFormattedDate(0)));
+            lucide.createIcons();
+        });
     </script>
 </body>
 </html>
